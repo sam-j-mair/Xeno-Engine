@@ -11,7 +11,8 @@ namespace XenoEngine.Systems.Physics
         public string Name { get; set; }
         public Material Mat { get; set; }
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     public struct MaterialPairKey
     {
         private int m_nKey;
@@ -23,7 +24,8 @@ namespace XenoEngine.Systems.Physics
 
         internal int Key { get { return m_nKey; } set { m_nKey = value; } }
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     public class MaterialPair
     {
         private Material m_materialOne;
@@ -45,7 +47,8 @@ namespace XenoEngine.Systems.Physics
             return (materialOne.GetHashCode() + materialTwo.GetHashCode());
         }
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     internal class MaterialCollisionItem
     {
         private MaterialPair m_pair;
@@ -58,32 +61,38 @@ namespace XenoEngine.Systems.Physics
             m_pair = new MaterialPair(materialOne, materialTwo);
             m_delegate += callBack;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void AddCallback(MatCollCallBack callBack)
         {
             m_delegate += callBack;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void RemoveCallback(MatCollCallBack callback)
         {
             m_delegate -= callback;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void Clear_Callbacks()
         {
             m_delegate = null;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         internal MatCollCallBack GetDelegate()
         {
             return m_delegate;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public override int GetHashCode()
         {
             return m_pair.GetHashCode();
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         internal MaterialPair Pair { get { return m_pair; } }
     }
 }

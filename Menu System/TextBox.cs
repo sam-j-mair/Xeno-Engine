@@ -26,6 +26,8 @@ namespace XenoEngine.Systems.MenuSystem
 
         public Action<string> TextEntered;
 
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public TextBox(Vector2 v2Position,
             Color eColor,
             string szAssetNameBackground = null,
@@ -69,7 +71,8 @@ namespace XenoEngine.Systems.MenuSystem
             m_accumulator = TimeSpan.Zero;
             m_szBuilder = new StringBuilder();
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public override void SetActive(bool bActive)
         {
             base.SetActive(bActive);
@@ -88,13 +91,15 @@ namespace XenoEngine.Systems.MenuSystem
                 m_textSprite.Deactivate();
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         private void OnClickEvent(GUIObject textBox)
         {
             if(Active)
                 m_bAcceptingText = true;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public override void Update(DeltaTime deltaTime)
         {
             m_accumulator += deltaTime.ElapsedGameTime;
@@ -148,13 +153,15 @@ namespace XenoEngine.Systems.MenuSystem
 
             base.Update(deltaTime);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         private void UpdateCursor()
         {
             m_cursor.Colour = m_cursor.Colour == Color.Red ? Color.Transparent : Color.Red;
             m_cursor.Position = new Vector2(m_textSprite.Position.X + (m_textSprite.TextString.Count() * CHAR_SPACE) - 20, m_textSprite.Position.Y);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public override void Dispose(bool bDisposing)
         {
             if (bDisposing)
@@ -163,7 +170,8 @@ namespace XenoEngine.Systems.MenuSystem
             }
             base.Dispose(bDisposing);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public override Vector2 Position
         {
             get

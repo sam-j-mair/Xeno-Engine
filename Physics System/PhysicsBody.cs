@@ -24,7 +24,8 @@ namespace XenoEngine.Systems.Physics
         private TSMatrix            m_transform;
         private Material            m_material;
 
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public PhysicsBody(BoundingCollider collider)
         {
             m_collider = collider;
@@ -33,7 +34,8 @@ namespace XenoEngine.Systems.Physics
 
             InitializeThreadSafeVariables();
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected void InitializeThreadSafeVariables()
         {
             m_fSpeed = new TSFloat(LockObject);
@@ -46,7 +48,8 @@ namespace XenoEngine.Systems.Physics
             m_v3Direction = new TSV3(LockObject, Vector3.Forward);
             m_bIsStatic = new TSBool(LockObject);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public TSFloat Mass { get { return m_fMass; } }
         public TSFloat Speed { get { return m_fSpeed; } }
         public TSFloat Acceleration { get { return m_fAcceleration; } }

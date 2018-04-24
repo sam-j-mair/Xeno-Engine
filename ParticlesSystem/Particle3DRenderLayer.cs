@@ -64,6 +64,7 @@ namespace XenoEngine.ParticleSystems
     [Serializable]
     public class Particle3DRenderLayer : RenderLayer<ParticleInfo>
     {
+        float               m_fCurrentTime;
         DynamicVertexBuffer m_vertexBuffer;
         IndexBuffer         m_indexBuffer;
         ParticleVertex[]    m_aVertices;
@@ -72,8 +73,9 @@ namespace XenoEngine.ParticleSystems
         [NonSerialized] EffectParameter m_effectProjectionParameter;
         [NonSerialized] EffectParameter m_effectViewportScaleParameter;
         [NonSerialized] EffectParameter m_effectTimeParameter;
-        float               m_fCurrentTime;
-
+        
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public Particle3DRenderLayer(int nMaxItems, EffectSettings settings)
             : base(nMaxItems)
         {
@@ -112,13 +114,15 @@ namespace XenoEngine.ParticleSystems
 
             m_fCurrentTime = 0;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         [OnDeserialized]
         protected new void OnDeserialized(StreamingContext context)
         {
             InitialiseEffect(null);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public virtual void InitialiseEffect(dynamic settings = null)
         {
             EffectParameterCollection parameters = Effect.Parameters;
@@ -152,7 +156,8 @@ namespace XenoEngine.ParticleSystems
 
             parameters["Texture"].SetValue(texture);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public override void Draw(DeltaTime deltaTime)
         {
             CallRequestInfo(deltaTime);
@@ -220,7 +225,8 @@ namespace XenoEngine.ParticleSystems
 
             base.Draw(deltaTime);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         private void BuildVertexBuffer()
         {
             int nIndexer = 0;

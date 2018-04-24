@@ -16,7 +16,8 @@ namespace XenoEngine.Systems.Physics
 
         CollisionBehaviour_Count
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     public class PhysicsEngine
     {
         //we don't initialize this until the instance constructor.
@@ -47,8 +48,10 @@ namespace XenoEngine.Systems.Physics
         public bool Paused { get; set; }
         public bool FixedTimeStep { get { return m_bfixedTimeStep; } set { m_bfixedTimeStep = value; } }
         public int TargetFrameRate { get { return (int)(m_fFixedTimeStep / 1.0f); } set { m_fFixedTimeStep = (1 / value); } }
-
+        
+        //----------------------------------------------------------------------------
         //This can only be used in multi-threading
+        //----------------------------------------------------------------------------
         private DeltaTime AdjustFrameRate(DeltaTime deltaTime)
         {
             if (m_bfixedTimeStep)
@@ -63,12 +66,14 @@ namespace XenoEngine.Systems.Physics
             }
             return deltaTime;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void AddMaterial(string szName, Material material)
         {
             m_Materials.Add(szName, material);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void AddMaterial(params MaterialSlotItem[] aMaterials)
         {
             foreach (MaterialSlotItem item in aMaterials)
@@ -76,7 +81,8 @@ namespace XenoEngine.Systems.Physics
                 AddMaterial(item.Name, item.Mat);
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         internal bool GetMaterialPair(Material one, Material two, out MaterialCollisionItem pair)
         {
             bool bResult = false;
@@ -86,7 +92,8 @@ namespace XenoEngine.Systems.Physics
 
             return bResult;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public MaterialPairKey AddMaterialPair(Material materialOne, Material materialTwo, MatCollCallBack callBack)
         {
             MaterialCollisionItem pair;
@@ -103,7 +110,8 @@ namespace XenoEngine.Systems.Physics
 
             return new MaterialPairKey(nKey);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void RemoveMaterialPair(MaterialPairKey key, MatCollCallBack callBack)
         {
             try
@@ -115,7 +123,8 @@ namespace XenoEngine.Systems.Physics
                 Debug.Assert(false, "MaterialPair doesn't exist");
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void UpdateRequested(PhysicsBody body)
         {
             Debug.Assert(!body.IsStatic.Value);
@@ -126,8 +135,9 @@ namespace XenoEngine.Systems.Physics
                     m_updateList.Add(body);
             }
         }
-
+        //----------------------------------------------------------------------------
         //I have made this public so the consumer has the choice of running this multi-threaded or not.
+        //----------------------------------------------------------------------------
         public void UpdateSimulation(DeltaTime deltaTime = default(DeltaTime))
         {
             PhysicsBody[] aBodies = null;
@@ -147,7 +157,8 @@ namespace XenoEngine.Systems.Physics
             m_updateTime = deltaTime;
             Parallel.ForEach(aBodies, Simulate);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         private void Simulate(PhysicsBody body)
         {
             lock (body.LockObject)
@@ -167,7 +178,8 @@ namespace XenoEngine.Systems.Physics
                 v3Direction *= fSpeed;
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         internal void ProcessBroadCollisions(DeltaTime deltaTime)
         {
             BoundingCollider[] aColliders = null;
@@ -194,7 +206,8 @@ namespace XenoEngine.Systems.Physics
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         internal void ProcessFineCollisions(DeltaTime deltaTime)
         {
             if (m_collisionsFineList.Count > 0)
@@ -226,7 +239,8 @@ namespace XenoEngine.Systems.Physics
                 m_collisionsFineList.Clear();
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void UpdateThreadProcess()
         {
             while (true)
@@ -237,19 +251,22 @@ namespace XenoEngine.Systems.Physics
                 ProcessFineCollisions(deltaTime);
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void AddColliderSim(BoundingCollider collider)
         {
             lock (m_colliderLock)
                 m_collisionsBroadList.Add(collider);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void RemoveColliderSim(BoundingCollider collider)
         {
             lock (m_colliderLock)
                 m_collisionsBroadList.Remove(collider);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public DeltaTime DeltaTime { get { return m_deltaTime; } set { m_deltaTime = value; } }
     }
 }

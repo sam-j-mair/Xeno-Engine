@@ -28,7 +28,8 @@ namespace XenoEngine.ParticleSystems
         Vector2 Scale { get; set; }
         object Tag { get; set; }
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     [Serializable]
     public abstract class ParticleController<TInfoType>
     {
@@ -46,7 +47,8 @@ namespace XenoEngine.ParticleSystems
         public abstract void InitializeParticle(ref IParticle particle, ParticleEmitter<TInfoType> emitter);
         public abstract void UpdateController(DeltaTime deltaTime, ParticleEmitter<TInfoType> emitter);
     }
-    
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     [Serializable]
     public abstract class Particle<TInfoType> : IParticle
     {
@@ -69,21 +71,25 @@ namespace XenoEngine.ParticleSystems
             LifeTime = fLifeTime;
             TimeAlive = 0;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public abstract void OnInitilized();
 
         public abstract void UpdateParticle(DeltaTime deltaTime);
-        
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected void SetParticleDead()
         {
             if (ParticleDead != null) ParticleDead(this);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void Dispose()
         {
             Active = false;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public IRenderLayer<TInfoType> RenderLayer { get; private set; }
         public virtual Vector3 Position { get; set; }
         public virtual Vector3 Direction { get; set; }
@@ -108,7 +114,8 @@ namespace XenoEngine.ParticleSystems
         private int m_nUpdateOrder;
 
         public event EventHandler<EventArgs> EnabledChanged, UpdateOrderChanged, Disposed;
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public ParticleEmitter(IRenderLayer<TInfoType> renderLayer, Type particleType, ParticleController<TInfoType> controller, string szAssetName, Vector3 v3Position, int nMaxSprites)
         {
             m_RenderLayer = renderLayer;
@@ -118,9 +125,6 @@ namespace XenoEngine.ParticleSystems
             SaveSerializationData("MaxSprites", nMaxSprites);
             SaveSerializationData("AssetName", szAssetName);
             SaveSerializationData("ParticleType", particleType);
-            
-//             if(controller.Effect != null)
-//                 m_RenderLayer.Effect = controller.Effect.Clone();
 
             ParticleController = controller;
 
@@ -131,8 +135,6 @@ namespace XenoEngine.ParticleSystems
             Enabled = true;
 
             EngineServices.GetSystem<IGameSystems>().Components.Add(this);
-
-            //Debug.Assert(particleType is IParticle && controller is ParticleController<TInfoType>);
 
             for (int nCounter = 0; nCounter < nMaxSprites; ++nCounter)
             {
@@ -170,20 +172,20 @@ namespace XenoEngine.ParticleSystems
         public void Start(bool bContinuos) { m_bActive = true; m_bContinuosEmission = bContinuos; m_bAllowGeneration = true; }
         public void Stop() { m_bActive = false; m_bAllowGeneration = false; m_bContinuosEmission = false; }
 
-        public virtual void Initialize() { }
 
+        public virtual void Initialize() { }
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         void IUpdateable.Update(GameTime gameTime)
         {
             Update(new DeltaTime(gameTime.TotalGameTime, gameTime.ElapsedGameTime));
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public virtual void Update(DeltaTime deltaTime)
         {
             if ((m_bActive || !m_bActive && (m_freeParticleList.Count != m_Particles.Count)) && ParticleController != null)
             {
-                //if (m_RenderLayer.Effect != ParticleController.Effect && ParticleController.Effect != null)
-                //    m_RenderLayer.Effect = ParticleController.Effect.Clone();
-
                 if (m_bAllowGeneration)
                 {
                     //We create new ones
@@ -203,13 +205,15 @@ namespace XenoEngine.ParticleSystems
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         private void DeadParticle_Event(IParticle particle)
         {
             particle.Active = false;
             m_freeParticleList.Enqueue(particle);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         private void GenerateParticles(DeltaTime deltaTime)
         {
             if (deltaTime.ElapsedGameTime.Milliseconds > ParticleController.GenerationTimer)
@@ -231,13 +235,15 @@ namespace XenoEngine.ParticleSystems
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void Dispose(bool bDisposing)
         {
             if (bDisposing)
@@ -273,7 +279,8 @@ namespace XenoEngine.ParticleSystems
             }
             
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public Effect Effect { get { return m_RenderLayer.Effect; } }
         public EffectSettings EffectSettings { get { return m_RenderLayer.EffectSettings; } set { m_RenderLayer.EffectSettings = value; } }
         public Vector3 Position { get; set; }
@@ -281,7 +288,8 @@ namespace XenoEngine.ParticleSystems
         public ParticleController<TInfoType> ParticleController { get; set; }
         public dynamic UserData { get; set; }
         public bool IsActive { get { return m_bActive; } }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public bool Enabled
         {
             get { return m_bEnabled; }
@@ -294,7 +302,8 @@ namespace XenoEngine.ParticleSystems
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public int UpdateOrder
         {
             get { return m_nUpdateOrder; }
