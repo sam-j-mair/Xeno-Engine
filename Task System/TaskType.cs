@@ -7,24 +7,18 @@ namespace XenoEngine.Systems
     //Just a dummy type to ensure type safety on task list.
     public abstract class TaskType
     {
-        private Thread                      m_executingThread;
-        private ManualResetEvent            m_resetEvent;
-        private ParameterizedThreadStart    m_taskOperation;
-        private object                      m_UserData;
         private event TaskCompleted         m_eOnCompleted;
-        private String                      m_szTaskName;
         //need a reference to this so that it can be removed from the tasks list.
-        private TaskHandle                  m_taskHandle;
         private bool                        m_bContinuousExecution;
 
-        internal Thread ExecutingThread { get { return m_executingThread; } set { m_executingThread = value; } }
-        internal ManualResetEvent Event { get { return m_resetEvent; } set { m_resetEvent = value; } }
-        internal ParameterizedThreadStart TaskOp { get { return m_taskOperation; } set { m_taskOperation = value; } }
-        internal TaskHandle Handle { get { return m_taskHandle; } set { m_taskHandle = value; } }
-        internal bool ContinuousExecution { get { return m_bContinuousExecution; } set { m_bContinuousExecution = value; } }
+        internal Thread ExecutingThread { get; set; }
+        internal ManualResetEvent Event { get; set;  }
+        internal ParameterizedThreadStart TaskOp { get; set; }
+        internal TaskHandle Handle { get; set; }
+        internal bool ContinuousExecution { get; set;  }
 
-        public object UserData { get { return m_UserData; } set { m_UserData = value; } }
-        public String Name { get { return m_szTaskName; } set { m_szTaskName = value; } }
+        public object UserData { get; set; }
+        public String Name { get; set; }
 
         internal void SetCompleteEvent(TaskCompleted taskCompleted)
         {

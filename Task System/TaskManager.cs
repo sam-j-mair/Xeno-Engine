@@ -53,17 +53,15 @@ namespace XenoEngine.Systems
     //----------------------------------------------------------------------------------
     class QueueEntry
     {
-        TaskType m_taskType;
-        float m_fTimeInQueue;
 
         public QueueEntry(TaskType taskType)
         {
-            m_taskType = taskType;
-            m_fTimeInQueue = 0.0f;
+            TaskType = taskType;
+            TimeInQueue = 0.0f;
         }
 
-        public TaskType TaskType { get { return m_taskType; } }
-        public float TimeInQueue { get { return m_fTimeInQueue; } set { m_fTimeInQueue = value; } }
+        public TaskType TaskType { get; }
+        public float TimeInQueue { get; set; }
     }
     //----------------------------------------------------------------------------------
     /// <summary>
@@ -72,20 +70,16 @@ namespace XenoEngine.Systems
     //----------------------------------------------------------------------------------
     class ThreadData
     {
-        private float m_fTimeIdle;
-        private int m_nNumberOfTasks;
-        private int m_nThreadID;
-
         public ThreadData()
         {
-            m_fTimeIdle = 0.0f;
-            m_nNumberOfTasks = 0;
-            m_nThreadID = 0;
+            IdleTime = 0.0f;
+            NumberOfTasks = 0;
+            ThreadID = 0;
         }
 
-        public float IdleTime { get { return m_fTimeIdle; } set { m_fTimeIdle = value; } }
-        public int NumberOfTasks { get { return m_nNumberOfTasks; } set { m_nNumberOfTasks = value; } }
-        public int ThreadID { get { return m_nThreadID; } set { m_nThreadID = value; } }
+        public float IdleTime { get; set; }
+        public int NumberOfTasks { get; set; }
+        public int ThreadID { get; set; }
     }
     //----------------------------------------------------------------------------------
     /// <summary>
