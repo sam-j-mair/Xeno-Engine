@@ -98,12 +98,5 @@ namespace XenoEngine.Systems
             TaskManager.Instance.GetTaskByHandle(handle).Event.WaitOne();
             theTask.ReturnData = theAsset;
         }
-        //----------------------------------------------------------------------------------
-        //----------------------------------------------------------------------------------
-        public void Dispose()
-        {
-            //This is where the clean up will occur.
-           // base.Dispose();
-        }
     }
 }
