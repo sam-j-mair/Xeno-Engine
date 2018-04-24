@@ -12,32 +12,37 @@ namespace XenoEngine.Systems.Sprite_Systems
         private IRenderLayer<SpriteInfo> m_system;
         //private bool        m_bUseParentTransform;
         private bool m_bIsActive;
-
+        #region constructors
         public Sprite(IRenderLayer<SpriteInfo> spriteSystem, string szAssetName, Vector3 v3Position, Color colour, bool bStartActive) :
             base(szAssetName, null, v3Position, colour)
         {
             Init(spriteSystem, bStartActive);
 
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public Sprite(IRenderLayer<SpriteInfo> spriteSystem, string szAssetName, StreamChunk streamChunk, Vector3 v3Position, Color colour, bool bStartActive) :
             base(szAssetName, streamChunk, v3Position, colour)
         {
             Init(spriteSystem, bStartActive);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public Sprite(IRenderLayer<SpriteInfo> spriteSystem, string szFontName, StreamChunk streamChunk, string szTextString, Vector3 v3Position, Color colour, bool bStartActive) :
             base(szFontName, streamChunk, szTextString, v3Position, colour)
         {
             Init(spriteSystem, bStartActive);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public Sprite(IRenderLayer<SpriteInfo> spriteSystem, string szAssetName, StreamChunk streamChunk, Vector3 v3Position, Color colour, List<AnimationDescription> animations) :
             base(szAssetName, v3Position, colour, animations)
         {
             Init(spriteSystem, true);
         }
-
+        #endregion
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         private void Init(IRenderLayer<SpriteInfo> spriteSystem, bool bStartActive)
         {
             //This could be done externally maybe.
@@ -50,7 +55,8 @@ namespace XenoEngine.Systems.Sprite_Systems
 
             m_bIsActive = bStartActive;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void Deactivate()
         {
             if (m_bIsActive)
@@ -59,7 +65,8 @@ namespace XenoEngine.Systems.Sprite_Systems
                 m_bIsActive = false;
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void Activate()
         {
             if (!m_bIsActive)
@@ -68,7 +75,8 @@ namespace XenoEngine.Systems.Sprite_Systems
                 m_bIsActive = true;
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public new void Dispose()
         {
             //This could be done externally maybe.
@@ -77,7 +85,8 @@ namespace XenoEngine.Systems.Sprite_Systems
 
             base.Dispose();
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public Color Colour { get { return m_spriteInfo.m_colour; } set { m_spriteInfo.m_colour = value; } }
         public Texture2D Graphic { get { return m_spriteInfo.m_texture2D; } set { m_spriteInfo.m_texture2D = value; } }
         public Vector2 Position { get { return m_spriteInfo.m_v2Position; } set { m_spriteInfo.m_v2Position = value; } }

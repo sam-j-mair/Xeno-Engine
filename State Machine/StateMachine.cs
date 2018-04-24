@@ -16,18 +16,21 @@ namespace XenoEngine.Systems
             m_CurrentState = startingState;
             m_CurrentState.OnEnter(this);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public TUserData UserData
         {
             get { return m_userData; }
             set { m_userData = value; }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public State<TUserData> CurrentState
         {
             get { return m_CurrentState; }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void Update(DeltaTime deltaTime)
         {
             if(m_CurrentState != null)
@@ -35,7 +38,8 @@ namespace XenoEngine.Systems
                 m_CurrentState.OnUpdate(this, deltaTime);
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void ChangeState(State<TUserData> newState)
         {
             Debug.Assert(newState != null);
@@ -63,13 +67,15 @@ namespace XenoEngine.Systems
             m_CurrentState = startingState;
             m_CurrentState.OnEnter(this);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public dynamic UserData
         {
             get { return m_userData; }
             set { m_userData = value; }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public State CurrentState
         {
             get { return m_CurrentState; }
@@ -82,7 +88,8 @@ namespace XenoEngine.Systems
                 m_CurrentState.OnUpdate(this, deltaTime);
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void ChangeState(State newState)
         {
             Debug.Assert(newState != null);

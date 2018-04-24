@@ -29,7 +29,8 @@ namespace XenoEngine.Systems.Sprite_Systems
 
             //m_animDirection = AnimationDirection
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public SpriteBase(string szFontName, StreamChunk streamChunk, string szTextString, Vector3 v3Position, Color colour)
         {
             m_spriteInfo = new SpriteInfo();
@@ -43,7 +44,8 @@ namespace XenoEngine.Systems.Sprite_Systems
             InitialiseSprite(ref v3Position, colour);
             
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public SpriteBase(string szAssetName, Vector3 v3Position, Color colour, List<AnimationDescription> animList)
         {
             m_spriteInfo = new SpriteInfo();
@@ -52,7 +54,8 @@ namespace XenoEngine.Systems.Sprite_Systems
             InitialiseSprite(ref v3Position, colour);
             //m_animDirection = AnimationDirection
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         private void InitialiseSprite(ref Vector3 v3Position, Color colour)
         {
             m_spriteInfo.m_v2Position.X = v3Position.X;
@@ -64,25 +67,29 @@ namespace XenoEngine.Systems.Sprite_Systems
             m_spriteInfo.m_v2ScaleFactor = Vector2.One;
             m_spriteInfo.m_colour = colour;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void PlayAnimation(string szAnimName)
         {
             Debug.Assert(m_spriteAnimation != null, "No animation data is set up for this sprite");
             m_spriteAnimation.PlayAnimation(szAnimName);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void SetFrame(Frame frame)
         {
             Debug.Assert(m_spriteAnimation != null, "No animation data is set up for this sprite");
             m_spriteAnimation.SetFrame(frame);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void SetSequence(string szSequenceName)
         {
             Debug.Assert(m_spriteAnimation != null, "No animation data is set up for this sprite");
             m_spriteAnimation.SetSequence(szSequenceName);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void InfoRequested(DeltaTime deltaTime)
         {
             //This clean out any old data.
@@ -113,11 +120,13 @@ namespace XenoEngine.Systems.Sprite_Systems
 
             if(SendInfo != null) SendInfo(m_spriteInfo);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public AnimationDirection Direction { get { return m_spriteAnimation.Direction; } set { m_spriteAnimation.Direction = value; } }
         public float DesiredAnimationRate { get { return m_spriteAnimation.DesiredAnimationRate; } set { m_spriteAnimation.DesiredAnimationRate = value; } }
         public bool Paused { get { return m_spriteAnimation.Paused; } set { m_spriteAnimation.Paused = value; } }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void Dispose()
         {
             m_bIsDisposed = true;

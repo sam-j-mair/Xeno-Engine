@@ -18,21 +18,24 @@ namespace XenoEngine.Systems.Sprite_Systems
             m_spriteBatch = new SpriteBatch(EngineServices.GetSystem<IGameSystems>().GraphicsDevice);
             BlendState = BlendState.Opaque;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public SpriteRenderLayer(int nMaxItems, EffectSettings settings) : base(nMaxItems)
         {
             m_spriteBatch = new SpriteBatch(EngineServices.GetSystem<IGameSystems>().GraphicsDevice);
             BlendState = BlendState.Opaque;
             EffectSettings = settings;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         [OnDeserializing]
         internal new void OnDeserialized(StreamingContext context)
         {
             m_spriteBatch = new SpriteBatch(EngineServices.GetSystem<IGameSystems>().GraphicsDevice);
             BlendState = BlendState.Opaque; 
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public override void Draw(DeltaTime deltaTime)
         {
             CallRequestInfo(deltaTime);
@@ -68,7 +71,8 @@ namespace XenoEngine.Systems.Sprite_Systems
             }
             base.Draw(deltaTime);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public new void Dispose()
         {
             m_spriteBatch = null;

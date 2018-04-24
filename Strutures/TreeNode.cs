@@ -17,7 +17,7 @@ namespace XenoEngine.Systems
         TreeNode<TUserType>         m_parent;
         
         // NOTE: This could be a LinkedList<T> but its 
-        //       probably not the important unless deletion/insertion
+        //       probably not that important unless deletion/insertion
         //       is important.
 
         List<TreeNode<TUserType>>   m_childList;

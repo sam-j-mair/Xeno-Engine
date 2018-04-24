@@ -54,24 +54,28 @@ namespace XenoEngine.Systems.Sprite_Systems
             Enabled = true;
             Visible = true;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         ~RenderLayer()
         {
             Dispose(false);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void RegisterSprite(IInfoBase<TInfoType> item)
         {
             RequestInfo += item.InfoRequested;
             item.SendInfo += AddInfo;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void DeregisterSprite(IInfoBase<TInfoType> item)
         {
             RequestInfo -= item.InfoRequested;
             item.SendInfo -= AddInfo;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void AddInfo(TInfoType spriteInfo)
         {
             if (m_RenderInfoList.Count < m_nMaxItems)
@@ -79,35 +83,43 @@ namespace XenoEngine.Systems.Sprite_Systems
             else
                 Debug.Write("Capacity has been reached!!");
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         protected void CallRequestInfo(DeltaTime deltaTime)
         {
             if(RequestInfo != null)
                 RequestInfo(deltaTime);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public virtual void Initialize() { }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         void IUpdateable.Update(GameTime gameTime)
         {
             Update(new DeltaTime(gameTime.TotalGameTime, gameTime.ElapsedGameTime));
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public virtual void Update(DeltaTime deltaTime) { }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         void IDrawable.Draw(GameTime gameTime)
         {
             Draw(new DeltaTime(gameTime.TotalGameTime, gameTime.ElapsedGameTime));
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public virtual void Draw(DeltaTime deltaTime) { }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void Dispose(bool bDisposing)
         {
             if (bDisposing)
@@ -135,7 +147,8 @@ namespace XenoEngine.Systems.Sprite_Systems
                 }
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public EffectSettings EffectSettings
         {
             get { return m_effectSettings; }
@@ -151,7 +164,8 @@ namespace XenoEngine.Systems.Sprite_Systems
                 m_effectSettings = value;
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public Effect Effect
         {
             get
@@ -162,10 +176,12 @@ namespace XenoEngine.Systems.Sprite_Systems
                     return null;
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public BlendState BlendState { get { return m_blendState.WrappedType; } set { m_blendState.WrappedType = value; } }
         public DepthStencilState DepthStencilState { get { return m_depthStencil.WrappedType; } set { m_depthStencil.WrappedType = value; } }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public bool Enabled
         {
             get { return m_bEnabled; }
@@ -178,7 +194,8 @@ namespace XenoEngine.Systems.Sprite_Systems
                 }
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public int UpdateOrder
         {
             get { return m_nUpdateOrder; }
@@ -191,7 +208,8 @@ namespace XenoEngine.Systems.Sprite_Systems
                 }
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public int DrawOrder
         {
             get { return m_nDrawOrder; }
@@ -204,7 +222,8 @@ namespace XenoEngine.Systems.Sprite_Systems
                 }
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public bool Visible
         {
             get { return m_bVisible; }

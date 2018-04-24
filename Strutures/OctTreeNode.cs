@@ -20,6 +20,9 @@ namespace XenoEngine.Systems.Structures
 
         public Vector3 Center { get { return m_v3Center; } }
         public float Length { get { return m_fLength; } }
+        private static GraphicsDevice graphicsDevice;
+        private static VertexDeclaration vertexDeclaration;
+        private static BasicEffect effect;
 
         private static readonly Vector3[] Vertices =
         {
@@ -28,33 +31,17 @@ namespace XenoEngine.Systems.Structures
             new Vector3(-1f, -1f, -1f), new Vector3(1f, -1f, -1f),
             new Vector3(1f, -1f, 1f), new Vector3(-1f, -1f, 1f),
             new Vector3(0, 0, 0)
-       };
-
-       //private static readonly short[] Indices =
-       //{
-        //   0, 1, 1, 2, 2, 3, 3, 0,
-        //   4, 5, 5, 6, 6, 7, 7, 4,
-        //   0, 4, 1, 5, 2, 6, 3, 7,
-        //   7, 8
-       //};
-
-       //private static readonly VertexElement[] VertexElements =
-       //{
-       //   new VertexElement(0, 0, VertexElementFormat.Vector3,
-       //       VertexElementUsage.Default, VertexElementUsage.Position, 0)
-       //};
-
+        };
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public static void InitialiseGraphics(GraphicsDevice device)
         {
             //OctTreeNode<T>.graphicsDevice = device;
             //OctTreeNode<T>.vertexDeclaration = new VertexDeclaration(device, OctTreeNode<T>.VertexElements);
             //OctTreeNode<T>.effect = new BasicEffect(device, null);
         }
-
-        private static GraphicsDevice    graphicsDevice;
-        private static VertexDeclaration vertexDeclaration;
-        private static BasicEffect       effect;
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public OctTreeNode(int nMaxDepth, int nDepth, float fParentWorldSize, Vector3 v3Center, AddObjectsFunctionDelegate<T> findFunc, object searchableData)
         {
             m_containmentList = new List<T>();
@@ -79,19 +66,22 @@ namespace XenoEngine.Systems.Structures
                 AddChild(new OctTreeNode<T>(nMaxDepth, nNextDepth, fParentWorldSize, m_v3Center + new Vector3(fQuater, -fQuater, fQuater), findFunc, searchableData));
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void AddObjectType(T containedObject)
         {
             m_containmentList.Add(containedObject);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public T[] GetObjectTypeList()
         {
             T[] aObjectTypes = new T[m_containmentList.Count];
             m_containmentList.CopyTo(aObjectTypes);
             return aObjectTypes;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         private void AddObjects(AddObjectsFunctionDelegate<T> findFunc, object data)
         {
             if(findFunc != null)
@@ -99,7 +89,8 @@ namespace XenoEngine.Systems.Structures
                 findFunc(this, data);
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public bool Search(SearchFunctionDelegate<T> searchFunc, object data, out T[] aObjects)
         {
             bool bFound = false;
@@ -128,7 +119,8 @@ namespace XenoEngine.Systems.Structures
 
             return bFound;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void Draw(DeltaTime deltaTime, ICamera camera)
         {
 //             if (OctTreeNode<T>.graphicsDevice != null)

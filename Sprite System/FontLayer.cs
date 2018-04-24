@@ -20,19 +20,22 @@ namespace XenoEngine.Systems.Sprite_Systems
         {
             base.RegisterSprite(sprite);
         }
-
+        //-------------------------------------------------------------------------------
         //This is done for type safety
+        //-------------------------------------------------------------------------------
         public void DeregisterSprite(TextSprite sprite)
         {
             base.DeregisterSprite(sprite);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         [OnDeserializing]
         internal void OnDeserializing(StreamingContext context)
         {
             m_spriteBatch = new SpriteBatch(EngineServices.GetSystem<IGameSystems>().GraphicsDevice);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public override void Draw(DeltaTime deltaTime)
         {
             CallRequestInfo(deltaTime);
@@ -61,7 +64,8 @@ namespace XenoEngine.Systems.Sprite_Systems
 
             base.Update(deltaTime);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public new void Dispose()
         {
             m_spriteBatch = null;

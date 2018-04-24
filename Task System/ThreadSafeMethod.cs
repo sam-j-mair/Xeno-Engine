@@ -15,13 +15,15 @@ namespace Xeno_Engine.Task_System
             m_lockObject = new object();
             m_pfFunction = pfFunction;
         }
-
+        //--------------------------------------------------------------
+        //--------------------------------------------------------------
         public ThreadSafeMethod(object lockObject, TDelegate pfFunction)
         {
             m_lockObject = lockObject;
             m_pfFunction = pfFunction;
         }
-
+        //--------------------------------------------------------------
+        //--------------------------------------------------------------
         public dynamic Function(params object[] aParams)
         {
             dynamic value = null;
@@ -35,7 +37,8 @@ namespace Xeno_Engine.Task_System
 
             return value;
         }
-
+        //--------------------------------------------------------------
+        //--------------------------------------------------------------
         public TReturnType Function<TReturnType>(params object[] aParams)
         {
             dynamic value = null;

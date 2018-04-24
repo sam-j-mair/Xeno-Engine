@@ -13,7 +13,8 @@ namespace XenoEngine.Systems
             m_nNumberOfSyncs = nNumberOfSyncs;
             m_threads = new List<Thread>(m_nNumberOfSyncs);
         }
-
+        //--------------------------------------------------------------
+        //--------------------------------------------------------------
         public void SignalAndWait()
         {
             Thread currentThread = Thread.CurrentThread;
@@ -32,7 +33,8 @@ namespace XenoEngine.Systems
                 }
             }
         }
-
+        //--------------------------------------------------------------
+        //--------------------------------------------------------------
         private void InteruptThreads()
         {
             foreach (Thread threadRef in m_threads)

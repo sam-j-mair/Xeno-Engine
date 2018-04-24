@@ -11,24 +11,28 @@ namespace XenoEngine.Systems.Sprite_Systems
     {
         public Frame m_frameSize;
         public Frame m_currentFrame;
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public static bool operator !=(SpriteAnimationData lhs, SpriteAnimationData rhs)
         {
             return (lhs.m_currentFrame.X != rhs.m_currentFrame.X || lhs.m_currentFrame.Y != rhs.m_currentFrame.Y) || 
                 (lhs.m_frameSize.X != rhs.m_frameSize.X || lhs.m_frameSize.Y != rhs.m_frameSize.Y);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public static bool operator ==(SpriteAnimationData lhs, SpriteAnimationData rhs)
         {
             return (lhs.m_currentFrame.X == rhs.m_currentFrame.X && lhs.m_currentFrame.Y == rhs.m_currentFrame.Y) &&
                 (lhs.m_frameSize.X == rhs.m_frameSize.X && lhs.m_frameSize.Y == rhs.m_frameSize.Y);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
@@ -50,7 +54,8 @@ namespace XenoEngine.Systems.Sprite_Systems
         public int X { get { return m_value.X; } set { m_value.X = value; } }
         public int Y { get { return m_value.Y; } set { m_value.Y = value; } }
     }
-
+    //-------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------
     [Serializable]
     public class AnimationDescription
     {
@@ -67,7 +72,8 @@ namespace XenoEngine.Systems.Sprite_Systems
             m_bLooping = bLooping;
         }
     }
-
+    //-------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------
     public enum AnimationDirection
     {
         Forward,
@@ -99,7 +105,8 @@ namespace XenoEngine.Systems.Sprite_Systems
                 m_animations.Add(desc.m_szName, desc);
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void PlayAnimation(string szAnimationName)
         {
             AnimationDescription desc;
@@ -108,22 +115,18 @@ namespace XenoEngine.Systems.Sprite_Systems
             m_currentAnimation = desc;
             m_fTimeElapsedScinceLastFrame = 0.0f;
             Paused = false;
-//             m_currentAnimation = desc.m_sheetSize;
-//             m_frameSize = desc.m_frameSize;
-//             m_bLooping = desc.m_bLooping;
-
-            //m_currentFrame.X = m_currentAnimation.X;
-            //m_currentFrame.Y = m_currentAnimation.Y;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void SetFrame(Frame frame)
         {
             Debug.Assert(frame.X <= m_currentAnimation.m_sheetSize.X && frame.Y <= m_currentAnimation.m_sheetSize.Y,
                 "This frame is larger than the current sheet.");
             m_currentFrame = frame;
         }
-
+        //-------------------------------------------------------------------------------
         //This is allow us to select the animation sequence without playing it.
+        //-------------------------------------------------------------------------------
         public void SetSequence(string szSequence)
         {
             AnimationDescription desc;
@@ -132,7 +135,8 @@ namespace XenoEngine.Systems.Sprite_Systems
             m_currentAnimation = desc;
             Paused = true;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public SpriteAnimationData UpdateCurrentAnimation(DeltaTime deltaTime)
         {
             SpriteAnimationData data = new SpriteAnimationData();
@@ -171,12 +175,14 @@ namespace XenoEngine.Systems.Sprite_Systems
 
             return data;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public bool IsDisposed { get; private set; }
         public bool Paused { get; set; }
         public AnimationDirection Direction { get; set; }
-        public float DesiredAnimationRate { get { return ((m_fDesiredElapsedTime/1000) * 1); } set { m_fDesiredElapsedTime = ((1 / value) * 1000); } } 
-
+        public float DesiredAnimationRate { get { return ((m_fDesiredElapsedTime/1000) * 1); } set { m_fDesiredElapsedTime = ((1 / value) * 1000); } }
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void Dispose()
         {
             m_animations.Clear();

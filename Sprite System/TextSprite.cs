@@ -18,7 +18,8 @@ namespace XenoEngine.Systems.Sprite_Systems
         public Vector2 StringSize { get { return m_spriteInfo.m_spriteFont.MeasureString(m_spriteInfo.m_szTextString); } }
         public String TextString { get { return m_spriteInfo.m_szTextString; } set { m_spriteInfo.m_szTextString = value; } }
     }
-
+    //-------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------
     [Serializable]
     public class GameSprite : Sprite
     {
@@ -28,24 +29,28 @@ namespace XenoEngine.Systems.Sprite_Systems
             Validate(spriteSystem);
             
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public GameSprite(IRenderLayer<SpriteInfo> spriteSystem, string szAssetName, StreamChunk streamChunk, Vector3 v3Position, Color colour, bool bStartActive) :
             base(spriteSystem, szAssetName, streamChunk, v3Position, colour, bStartActive)
         {
             Validate(spriteSystem);
         }
-        
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public GameSprite(IRenderLayer<SpriteInfo> spriteSystem, string szAssetName, StreamChunk streamChunk, Vector3 v3Position, Color colour, List<AnimationDescription> animations) :
             base(spriteSystem, szAssetName, streamChunk, v3Position, colour, animations)
         {
             Validate(spriteSystem);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         private void Validate(IRenderLayer<SpriteInfo> spriteSystem)
         {
             Debug.Assert(spriteSystem is RenderLayer<SpriteInfo>);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         protected void OnSerializing(StreamingContext context)
         {
 

@@ -29,12 +29,14 @@ namespace XenoEngine.Systems.SpacialPartioningSystem
 
             m_octreeRoot = new OctTreeNode<T>(nMaxDepth, 0, fWorldSize, v3Center, findFunc, searchableData);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public bool Search(out T[] aObjects, object data)
         {
             return m_octreeRoot.Search(m_searchFunc, data, out aObjects);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void Draw(DeltaTime deltaTime, ICamera camera)
         {
             m_octreeRoot.Draw(deltaTime, camera);

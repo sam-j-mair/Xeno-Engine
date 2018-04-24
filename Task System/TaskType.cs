@@ -30,7 +30,8 @@ namespace XenoEngine.Systems
         {
             m_eOnCompleted += taskCompleted;
         }
-
+        //--------------------------------------------------------------
+        //--------------------------------------------------------------
         internal void SetCompleteEvent(TaskCompleted[] events)
         {
             foreach (TaskCompleted callback in events)
@@ -38,7 +39,8 @@ namespace XenoEngine.Systems
                 m_eOnCompleted += callback;
             }
         }
-
+        //--------------------------------------------------------------
+        //--------------------------------------------------------------
         internal void FireCompletedEvent(object returnData)
         {
             if(m_eOnCompleted != null)
