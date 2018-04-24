@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework.Content;
 
-//                 StreamChunkLoader chunkLoader = new StreamChunkLoader(ref m_serviceProvider,
-//                                                                       szAssetGroupName,
-//                                                                       ref m_szRootDirectory);
-
 
 namespace XenoEngine.Systems
 {

@@ -11,18 +11,15 @@ namespace XenoEngine.Systems
     [Serializable]
     public class RegionLoader : ContentManager
     {
-        //private Dictionary<String, Object> m_LoadedRegionAssests;
-        //ReaderWriterLock m_readWriteLock;
         //This is a blank dummy class
         Object m_lockObject;
 
         public RegionLoader(IServiceProvider iService) : base(iService)
         {
-            //m_LoadedRegionAssests = new Dictionary<String, Object>();
-            //m_readWriteLock = new ReaderWriterLock();
             m_lockObject = new Object();
         }
-
+        //----------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------
         public override T Load<T>(string assetName)
         {
             T asset;
@@ -34,7 +31,8 @@ namespace XenoEngine.Systems
 
             return (T)asset;
         }
-
+        //----------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------
         public override void Unload()
         {
             lock(m_lockObject)

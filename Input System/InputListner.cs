@@ -13,7 +13,6 @@ namespace XenoEngine.Systems
     [Serializable]
     public class InputListner
     {
-        protected ActionMap m_actionMap;
 
         //Leaving this one for legacy reasons
         public InputListner(){ }
@@ -22,7 +21,7 @@ namespace XenoEngine.Systems
         public virtual void Initialise() { }
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
-        public ActionMap ActionMap { get { return m_actionMap; } set { m_actionMap = value; } }
+        public ActionMap ActionMap { get; protected set; }
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         public virtual void Update(GameTime gameTime) { }
@@ -30,12 +29,12 @@ namespace XenoEngine.Systems
         //----------------------------------------------------------------------------
         protected void FireEvent(String szEventName)
         {
-            Type type = m_actionMap.GetType();
+            Type type = ActionMap.GetType();
             Object[] aParams = new Object[1];
-            m_actionMap.LastAction = szEventName;
-            aParams[0] = m_actionMap;
+            ActionMap.LastAction = szEventName;
+            aParams[0] = ActionMap;
  
-            ActionTriggered action = m_actionMap.GetAction(szEventName);
+            ActionTriggered action = ActionMap.GetAction(szEventName);
 
             if(action != null)
             {
