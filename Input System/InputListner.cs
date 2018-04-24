@@ -10,54 +10,6 @@ using System.Collections.Generic;
 
 namespace XenoEngine.Systems
 {
-//     public class InputButtonsCollection : IEnumerable
-//     {
-//         int nCurrentIndex = 0;
-//         RawInputBuffer m_buffer;
-// 
-//         public InputButtonsCollection(RawInputBuffer buffer)
-//         {
-//             m_buffer = buffer;
-//         }
-//         
-//         public IEnumerable GetEnumerator()
-//         {
-// 
-//             yield return 
-//         }
-//         /// <summary>
-//         /// This is actually an OfType call.
-//         /// </summary>
-//         /// <typeparam name="TCastType"></typeparam>
-//         public IEnumerable Cast<TCastType>()
-//         {
-//             
-//         }
-//     }
-// 
-//     public class RawInputBuffer
-//     {
-//         Type m_castType;
-//         internal RawInputBuffer(Type type, dynamic inputBuffer)
-//         {
-//             m_InternalInputBuffer = inputBuffer;
-//             m_castType = type;
-//         }
-//         internal object[] m_InternalInputBuffer;
-// 
-//         //public IEnumerable InternalInputBuffer { get { return //m_InternalInputBuffer(); } protected set { m_InternalInputBuffer = value; } }
-//     }
-
-//     public class RawInputBuffer<T> : RawInputBuffer where T : class
-//     {
-//         public RawInputBuffer(T[] inputBuffer) : base(inputBuffer)
-//         {
-//             m_InternalInputBuffer = (object[])inputBuffer;
-//         }
-// 
-//         //public T[] InputBuffer { get { return (T[])InternalInputBuffer; } }
-//     }
-
     [Serializable]
     public class InputListner
     {
@@ -90,7 +42,8 @@ namespace XenoEngine.Systems
                 action(this);
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public ControllerType Type { get; protected set; }
 
         public virtual IEnumerable GetRawInputBuffer() { return null; }

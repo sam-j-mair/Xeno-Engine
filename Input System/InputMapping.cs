@@ -17,7 +17,8 @@ namespace XenoEngine.Systems
     {
         private int m_nControllerIndex;
 
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public ActionMapBuilder(int nPlayerIndex)
         {
             //TEST

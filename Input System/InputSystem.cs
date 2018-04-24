@@ -20,13 +20,10 @@ namespace XenoEngine.Systems
     [Serializable]
     public class Input
     {
+        //members
         private List<ControllerMap> m_inputListners = new List<ControllerMap>(4);
         private Dictionary<ControllerType, Type> m_dynamicStore; 
-
-        public Input()
-        {
-
-        }
+        
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         public void CreateController<InputListnerType>(int nControllerIndex, ActionMap actionMap) where InputListnerType : InputListner, new()
@@ -71,7 +68,8 @@ namespace XenoEngine.Systems
 
             return null;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public InputListner GetInputListner(ControllerType eControllerType, PlayerIndex ePlayerIndex = PlayerIndex.One)
         {
             foreach (ControllerMap controllerMap in m_inputListners)
@@ -85,7 +83,6 @@ namespace XenoEngine.Systems
             }
             return null;
         }
-
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         public void Update(GameTime gameTime)

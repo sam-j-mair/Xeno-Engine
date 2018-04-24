@@ -9,37 +9,36 @@ namespace XenoEngine.Systems
     [Serializable]
     public class MouseObserver
     {
-        public MouseObserver()
-        {
-
-        }
-
         public void Update(int nMouseX, int nMouseY)
         {
             MouseX = nMouseX;
             MouseY = nMouseY;
         }
-
+        //----------------------------------------------------------------------------
         //Some special magic to avoid references in the event handler
+        //----------------------------------------------------------------------------
         [OnSerializing]
         protected void OnSerializing(StreamingContext context)
         {
             InputMouseListner.MouseObserverUpdate -= Update;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         [OnSerialized]
         protected void OnSerialized(StreamingContext context)
         {
             InputMouseListner.MouseObserverUpdate += Update;
         }
-
+        //----------------------------------------------------------------------------
         //This happens on the remote machine ..or after a restore.
+        //----------------------------------------------------------------------------
         [OnDeserialized]
         protected void OnDeserialized(StreamingContext context)
         {
             InputMouseListner.MouseObserverUpdate += Update;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public int MouseX { get; internal set; }
         public int MouseY { get; internal set; }
         public Vector2 Position { get { return new Vector2(MouseX, MouseY); } }

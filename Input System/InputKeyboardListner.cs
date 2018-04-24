@@ -14,24 +14,23 @@ namespace XenoEngine.Systems
         const int m_knBufferSize = 20;
         static string[] saEventBuffer = new string[m_knBufferSize];
 
-        public InputKeyboardListner() 
-        {
-            
-        }
-
+        //-----------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------
         public override void Initialise()
         {
             Type = ControllerType.Keyboard;
             m_oldKeyboardState = Keyboard.GetState((PlayerIndex)ActionMap.PlayerIndex);
         }
-
+        //-----------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------
         public Keys[] GetRawInputBuffer(PlayerIndex eControllerIndex)
         {
             KeyboardState state = Keyboard.GetState(eControllerIndex);
 
             return state.GetPressedKeys();
         }
-
+        //-----------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------
         public override void Update(GameTime gameTime)
         {
             KeyboardState keyState = Keyboard.GetState((PlayerIndex)ActionMap.PlayerIndex);
@@ -85,7 +84,8 @@ namespace XenoEngine.Systems
             // update the keyboard state for the next frame.
             m_oldKeyboardState = keyState;
         }
-
+        //-----------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------
         public override IEnumerable GetRawInputBuffer()
         {
             return Keyboard.GetState().GetPressedKeys();
