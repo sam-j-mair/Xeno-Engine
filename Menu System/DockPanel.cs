@@ -32,7 +32,8 @@ namespace XenoEngine.Systems.MenuSystem
             //initialize the first page.
             m_pages[m_nCurrentPage] = new PixelSpaceAllocator(v2InitialPos, nWidth, nHeight);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void Add(IDockable dockingObject)
         {
             var entry = new PlaceHolder();
@@ -63,12 +64,8 @@ namespace XenoEngine.Systems.MenuSystem
 
             m_nLastAddedIndex = m_nCurrentIndex - 1;
         }
-
-//         private Vector2 FindNextAvailablePosition()
-//         {
-// 
-//         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public override Vector2 Position
         {
             get
@@ -81,7 +78,8 @@ namespace XenoEngine.Systems.MenuSystem
             }
         }
 
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         internal class PlaceHolder
         {
             public bool IsEmpty { get; set; }
@@ -89,7 +87,8 @@ namespace XenoEngine.Systems.MenuSystem
             public Rectangle Bounds{ get; set; }
             public IDockable DockableObject { get; set; }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         internal class PixelSpaceAllocator
         {
             LinkedList<PlaceHolder> m_pixelSpace = new LinkedList<PlaceHolder>();
@@ -108,7 +107,8 @@ namespace XenoEngine.Systems.MenuSystem
 
                 m_pixelSpace.AddFirst(placeHolder);
             }
-
+            //----------------------------------------------------------------------------
+            //----------------------------------------------------------------------------
             public bool AllocPixelSpace(IDockable iDockable, Rectangle bounds)
             {
                 bool bIsFull = true;
@@ -161,7 +161,8 @@ namespace XenoEngine.Systems.MenuSystem
 
                 return bAlloced;
             }
-
+            //----------------------------------------------------------------------------
+            //----------------------------------------------------------------------------
             public void DeallocPixelSpace(Rectangle bounds)
             {
                 foreach (PlaceHolder placeHolder in m_pixelSpace)
@@ -173,7 +174,8 @@ namespace XenoEngine.Systems.MenuSystem
                     }
                 }
             }
-
+            //----------------------------------------------------------------------------
+            //----------------------------------------------------------------------------
             private void ConsolidatePixelSpace()
             {
                 PlaceHolder consoledSpace = new PlaceHolder();

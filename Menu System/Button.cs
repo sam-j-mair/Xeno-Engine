@@ -43,7 +43,8 @@ namespace XenoEngine.Systems.MenuSystem
 
             CalculateBoundingRectangle(m_sprite);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public Button(  string szAssetName,
                         string szFontName,
                         Vector3 v3Position,
@@ -62,48 +63,14 @@ namespace XenoEngine.Systems.MenuSystem
 
             CalculateBoundingRectangle(m_sprite);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         ~Button()
         {
             Dispose(false);
         }
-
-
-
-//         internal void Right(object sender)
-//         {
-//             if (Active)
-//             {
-//                 OnRight(this);
-//             }
-//         }
-
-//         public void Left(object sender)
-//         {
-//             if (Active)
-//             {
-//                 OnLeft(this);
-//             }
-//         }
-
-//         public void Up(object sender)
-//         {
-//             if (Active)
-//             {
-//                 OnUp(this);
-//             }
-//         }
-
-//         public void Down(object sender)
-//         {
-//             if (Active)
-//             {
-//                 OnDown(this);
-//             }
-//         }
-
-
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public override void Dispose(bool bDisposing)
         {
             if(bDisposing)
@@ -120,7 +87,8 @@ namespace XenoEngine.Systems.MenuSystem
 
             base.Dispose(bDisposing);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public Color Colour { get { return m_sprite.Colour; } set { m_sprite.Colour = value; } }
         public Texture2D Graphic { get { return m_sprite.Graphic; }
             set 
@@ -129,11 +97,13 @@ namespace XenoEngine.Systems.MenuSystem
                 CalculateBoundingRectangle(m_sprite);
             } 
         }
-
+        //----------------------------------------------------------------------------
         //This is using lazy initialization ...so that it is only used when needed.
+        //----------------------------------------------------------------------------
         public Color TextColoir { get { return m_textSprite.Colour; } set { m_textSprite.Colour = value; } }
         public Vector2 TextPosition { get { return m_textSprite.Position; } set { m_textSprite.Position = value; } }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public String Text 
         {
             get 
@@ -171,9 +141,5 @@ namespace XenoEngine.Systems.MenuSystem
                 }
             }
         }
-
-        
-
-        
     }
 }

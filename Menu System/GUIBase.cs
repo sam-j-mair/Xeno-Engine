@@ -26,7 +26,8 @@ namespace XenoEngine.Systems.MenuSystem
         RollOff,
         Idle
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     public abstract class GUIObject : SerializableComponent, IGameComponent, IUpdateable, IDockable, IDisposable
     {
         #region PRIVATE
@@ -73,23 +74,28 @@ namespace XenoEngine.Systems.MenuSystem
             EngineServices.GetSystem<IGameSystems>().Components.Add(this);
             Enabled = true;
         }
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         ~GUIObject() { Dispose(false); } 
 
         public dynamic UserData { get; set; }
         public bool Active { get; private set; }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected void CalculateBoundingRectangle(Sprite sprite)
         {
             Vector2 v2Position = sprite.Position;
             Texture2D texture2D = sprite.Graphic;
             m_BoundingRectangle = new Rectangle((int)v2Position.X, (int)v2Position.Y, texture2D.Width, texture2D.Height);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected void CalculateBoundingRectangle(Vector2 v2Pos, Texture2D texture)
         {
             m_BoundingRectangle = new Rectangle((int)v2Pos.X, (int)v2Pos.Y, texture.Width, texture.Height);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected virtual void ConnectedEvents(Input inputSytem)
         {
             ActionMap actionMap = inputSytem.GetController((int)Controller.Player_1_Mouse);
@@ -101,7 +107,8 @@ namespace XenoEngine.Systems.MenuSystem
             OnOver += OnOverEvent;
             OnOff += OnOffEvent;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected virtual void InitialiseScripts(List<IScriptUpdateable<Button>> buttonScripts)
         {
             if (buttonScripts != null)
@@ -119,7 +126,8 @@ namespace XenoEngine.Systems.MenuSystem
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public virtual void SetActive(bool bActive)
         {
             if (!Active && bActive)
@@ -131,12 +139,11 @@ namespace XenoEngine.Systems.MenuSystem
                 Active = bActive;
             }
         }
-
-        protected virtual void OnSelectEvent(Button sender)
-        {
-
-        }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
+        protected virtual void OnSelectEvent(Button sender) { }
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected virtual void OnOverEvent(GUIObject button)
         {
             if (Active)
@@ -152,7 +159,8 @@ namespace XenoEngine.Systems.MenuSystem
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected virtual void OnOffEvent(GUIObject button)
         {
             if (Active)
@@ -169,7 +177,8 @@ namespace XenoEngine.Systems.MenuSystem
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected virtual void OnClickEvent(object sender)
         {
             if (Active && CheckInteraction())
@@ -190,7 +199,8 @@ namespace XenoEngine.Systems.MenuSystem
                 m_bSelected = true;
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected virtual void OnUnClickEvent(object sender)
         {
             if (Active && m_bSelected)
@@ -211,7 +221,8 @@ namespace XenoEngine.Systems.MenuSystem
                 m_bSelected = false;
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected virtual void OnClickEventPolling(object sender)
         {
             if (Active && CheckInteraction())
@@ -233,12 +244,14 @@ namespace XenoEngine.Systems.MenuSystem
             }
 
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         private void ScriptComplete()
         {
             m_currentScript = null;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public virtual void Initialize() { }
         void IUpdateable.Update(GameTime gameTime) {Update(new DeltaTime(gameTime.TotalGameTime, gameTime.ElapsedGameTime)); }
         public void Dispose()
@@ -246,18 +259,21 @@ namespace XenoEngine.Systems.MenuSystem
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void AddChild(GUIObject button)
         {
             Debug.Assert(button != this);
             m_treeNode.AddChild(button.m_treeNode);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void RemoveChild(Button button)
         {
             m_treeNode.RemoveChild(button.m_treeNode);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         private void RecursiveDeparent()
         {
             foreach (GUINode node in m_treeNode)
@@ -266,7 +282,8 @@ namespace XenoEngine.Systems.MenuSystem
                 node.UserData.Dispose();
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public virtual void Update(DeltaTime deltaTime)
         {
             CheckforRoll();
@@ -276,7 +293,8 @@ namespace XenoEngine.Systems.MenuSystem
                 m_currentScript.OnUpdate(deltaTime);
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected virtual void CheckforRoll()
         {
             if (CheckInteraction())
@@ -300,7 +318,8 @@ namespace XenoEngine.Systems.MenuSystem
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected virtual bool CheckInteraction()
         {
             bool bTest = false;
@@ -312,7 +331,8 @@ namespace XenoEngine.Systems.MenuSystem
 
             return bTest;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public virtual void Dispose(bool bDisposing)
         {
             if (bDisposing)
@@ -362,6 +382,8 @@ namespace XenoEngine.Systems.MenuSystem
         /// <summary>
         /// The top left corner of the bounding rectangle.
         /// </summary>
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public virtual Vector2 Position
         {
             get { return m_BoundingRectangle.Location.ToVec2(); }
@@ -378,7 +400,8 @@ namespace XenoEngine.Systems.MenuSystem
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public bool Enabled
         {
             get { return m_bEnabled; }
@@ -391,7 +414,8 @@ namespace XenoEngine.Systems.MenuSystem
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public int UpdateOrder
         {
             get { return m_nUpdateOrder; }
