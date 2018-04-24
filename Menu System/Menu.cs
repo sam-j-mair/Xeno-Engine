@@ -27,7 +27,8 @@ namespace XenoEngine.Systems.MenuSystem
             m_userData = userData;
         }
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     abstract class Menu : SerializableComponent, IGameComponent, IUpdateable, IDisposable
     {
         #region EVENTS
@@ -73,76 +74,90 @@ namespace XenoEngine.Systems.MenuSystem
 
             EngineServices.GetSystem<IGameSystems>().Components.Add(this);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         ~Menu()
         {
             Dispose(false);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public virtual void Initialize() { }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected void AddButton(string szName, Button button)
         {
             Button value;
             Debug.Assert(!m_buttonDictionary.TryGetValue(szName, out value), "A button has already been added with the name: " + szName);
             m_buttonDictionary.Add(szName, button);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected Button RetrieveButton(string szName)
         {
             return m_buttonDictionary[szName];
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected void AddChildMenu(Menu childMenu)
         {
 #warning Make it so only one child menu for each menu.
             m_node.AddChild(childMenu.m_node);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected void RemoveChildMenu(Menu childMenu)
         {
             m_node.RemoveChild(childMenu.m_node);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected Menu GetParent()
         {
             return m_node.Parent.UserData;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void Activate()
         {
             Debug.Assert(m_stateMachine.CurrentState == m_states["Idle"]);
             m_stateMachine.ChangeState(m_states["Activating"]);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void Deactivate()
         {
             Debug.Assert(m_stateMachine.CurrentState == m_states["Active"]);
             m_stateMachine.ChangeState(m_states["Deactivating"]);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void ButtonsToArray(out Button[] aButtons)
         {
             aButtons = new Button[m_buttonDictionary.Count];
             m_buttonDictionary.Values.CopyTo(aButtons, 0);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         void IUpdateable.Update(GameTime gameTime)
         {
             Update(new DeltaTime(gameTime.TotalGameTime, gameTime.ElapsedGameTime));
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public virtual void Update(DeltaTime deltaTime)
         {
             m_stateMachine.Update(deltaTime);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         protected void Dispose(bool bDisposing)
         {
             if (bDisposing)
@@ -174,9 +189,11 @@ namespace XenoEngine.Systems.MenuSystem
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public bool IsActive { get { return m_bIsActive; } }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public bool Enabled
         {
             get { return m_bEnabled; }
@@ -189,7 +206,8 @@ namespace XenoEngine.Systems.MenuSystem
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public int UpdateOrder
         {
             get { return m_nUpdateOrder; }
@@ -206,7 +224,8 @@ namespace XenoEngine.Systems.MenuSystem
 
         //NOTE: These may not be needed.
         //STATES
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         class StateIdle : State<Menu>
         {
             public override void OnEnter(StateMachine<Menu> stateMachine)
@@ -216,18 +235,21 @@ namespace XenoEngine.Systems.MenuSystem
                 if(menu.Idle != null)
                     menu.Idle();
             }
-
+            //----------------------------------------------------------------------------
+            //----------------------------------------------------------------------------
             public override void OnUpdate(StateMachine<Menu> stateMachine, DeltaTime deltaTime)
             {
 
             }
-
+            //----------------------------------------------------------------------------
+            //----------------------------------------------------------------------------
             public override void OnExit(StateMachine<Menu> stateMachine)
             {
 
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         class StateActivating : State<Menu>
         {
             public override void OnEnter(StateMachine<Menu> stateMachine)
@@ -237,20 +259,22 @@ namespace XenoEngine.Systems.MenuSystem
                 if (menu.Activating != null)
                     menu.Activating();
             }
-
+            //----------------------------------------------------------------------------
+            //----------------------------------------------------------------------------
             public override void OnUpdate(StateMachine<Menu> stateMachine, DeltaTime deltaTime)
             {
                 Menu menu = stateMachine.UserData as Menu;
                 stateMachine.ChangeState(menu.m_states["Active"]);
-
             }
-
+            //----------------------------------------------------------------------------
+            //----------------------------------------------------------------------------
             public override void OnExit(StateMachine<Menu> stateMachine)
             {
 
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         class StateActive : State<Menu>
         {
             public override void OnEnter(StateMachine<Menu> stateMachine)
@@ -263,12 +287,14 @@ namespace XenoEngine.Systems.MenuSystem
                 menu.m_bIsActive = true;
 
             }
-
+            //----------------------------------------------------------------------------
+            //----------------------------------------------------------------------------
             public override void OnUpdate(StateMachine<Menu> stateMachine, DeltaTime deltaTime)
             {
 
             }
-
+            //----------------------------------------------------------------------------
+            //----------------------------------------------------------------------------
             public override void OnExit(StateMachine<Menu> stateMachine)
             {
                 Menu menu = stateMachine.UserData as Menu;
@@ -276,7 +302,8 @@ namespace XenoEngine.Systems.MenuSystem
                 menu.m_bIsActive = false;
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         class StateDeactivating : State<Menu>
         {
             public override void OnEnter(StateMachine<Menu> stateMachine)
@@ -287,7 +314,8 @@ namespace XenoEngine.Systems.MenuSystem
                     menu.Deactivating();
 
             }
-
+            //----------------------------------------------------------------------------
+            //----------------------------------------------------------------------------
             public override void OnUpdate(StateMachine<Menu> stateMachine, DeltaTime deltaTime)
             {
                 Menu menu = stateMachine.UserData as Menu;
@@ -295,7 +323,8 @@ namespace XenoEngine.Systems.MenuSystem
 
 
             }
-
+            //----------------------------------------------------------------------------
+            //----------------------------------------------------------------------------
             public override void OnExit(StateMachine<Menu> stateMachine)
             {
 
