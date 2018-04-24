@@ -13,12 +13,14 @@ namespace XenoEngine.ScriptSystem
             m_engine = Python.CreateEngine();
             m_scriptRuntime = Python.CreateRuntime();
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public static ScriptEngine GetScriptEngine()
         {
             return m_engine;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public static ScriptRuntime GetRuntime()
         {
             return m_scriptRuntime;

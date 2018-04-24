@@ -9,7 +9,8 @@ namespace XenoEngine
     {
         T UserData { get; set; }
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     public interface IScriptUpdateable
     {
         dynamic DynamicUserData { get; set; }

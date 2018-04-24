@@ -19,7 +19,8 @@ namespace XenoEngine.Serialization.Proxies
 
         public virtual T WrappedType { get { return m_WrappedType; } set { m_WrappedType = value; } }
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     [Serializable]
     public class SerializableTexture : SerializableAssetProxie<Texture2D, string>
     {
@@ -36,7 +37,8 @@ namespace XenoEngine.Serialization.Proxies
             m_WrappedType = EngineServices.GetSystem<IGameSystems>().Content.Load<Texture2D>(m_restoreData);
         }
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     [Serializable]
     public class SerializableFont : SerializableAssetProxie<SpriteFont, string>
     {
@@ -62,7 +64,8 @@ namespace XenoEngine.Serialization.Proxies
                 m_WrappedType = EngineServices.GetSystem<IGameSystems>().Content.Load<SpriteFont>(m_restoreData);
         }
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     [Serializable]
     public class SerialiableBlendState : SerializableAssetProxie<BlendState, string>
     {
@@ -80,7 +83,8 @@ namespace XenoEngine.Serialization.Proxies
             m_WrappedType = method.Invoke(null, null) as BlendState;
         }
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     [Serializable]
     public class SerializableDepthStencil : SerializableAssetProxie<DepthStencilState, string>
     {
@@ -96,7 +100,8 @@ namespace XenoEngine.Serialization.Proxies
             m_WrappedType = EngineServices.GetSystem<IGameSystems>().Content.Load<DepthStencilState>(m_restoreData);
         }
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     [Serializable]
     public class SerializableEffect : SerializableAssetProxie<Effect, byte[]>
     {
