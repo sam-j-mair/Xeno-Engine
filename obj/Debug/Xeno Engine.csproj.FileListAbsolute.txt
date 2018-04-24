@@ -1,0 +1,11 @@
+C:\Users\Sam\Documents\Visual Studio 2010\Projects\Xeno Engine\Xeno Engine\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Sam\Documents\Visual Studio 2010\Projects\Xeno Engine\Xeno Engine\bin\Debug\Xeno Engine.dll
+C:\Users\Sam\Documents\Visual Studio 2010\Projects\Xeno Engine\Xeno Engine\bin\Debug\Xeno Engine.pdb
+C:\Users\Sam\Documents\Visual Studio 2010\Projects\Xeno Engine\Xeno Engine\bin\Debug\BEPUphysics.dll
+C:\Users\Sam\Documents\Visual Studio 2010\Projects\Xeno Engine\Xeno Engine\bin\Debug\SkinnedModel.dll
+C:\Users\Sam\Documents\Visual Studio 2010\Projects\Xeno Engine\Xeno Engine\bin\Debug\XmlDataPipeLine.dll
+C:\Users\Sam\Documents\Visual Studio 2010\Projects\Xeno Engine\Xeno Engine\bin\Debug\XmlDataPipeLine.pdb
+C:\Users\Sam\Documents\Visual Studio 2010\Projects\Xeno Engine\Xeno Engine\bin\Debug\BEPUphysics.xml
+C:\Users\Sam\Documents\Visual Studio 2010\Projects\Xeno Engine\Xeno Engine\obj\Debug\Xeno Engine.dll
+C:\Users\Sam\Documents\Visual Studio 2010\Projects\Xeno Engine\Xeno Engine\obj\Debug\Xeno Engine.pdb
+C:\Users\Sam\documents\visual studio 2010\Projects\Xeno Engine\Xeno Engine\bin\Debug\SkinnedModel.pdb

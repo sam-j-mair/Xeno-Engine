@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{83EEA37C-4573-46B7-B328-222D5AC74E9E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xeno_Engine</RootNamespace>
+    <AssemblyName>Xeno Engine</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BEPUphysics">
+      <HintPath>Physics System\BEPUphysics.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPython, Version=2.7.0.40, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Apps\IronPyhon 2.7\IronPython.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPython.Modules, Version=2.7.0.40, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Apps\IronPyhon 2.7\IronPython.Modules.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dynamic, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Apps\IronPyhon 2.7\Microsoft.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Apps\IronPyhon 2.7\Microsoft.Scripting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting.Metadata, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Apps\IronPyhon 2.7\Microsoft.Scripting.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Xna.Framework.Storage, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+    <Reference Include="SkinnedModel">
+      <HintPath>..\Content Systems\bin\Debug\SkinnedModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Speech" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssetSystem\AssetLoader.cs" />
+    <Compile Include="Camera System\ICamera.cs" />
+    <Compile Include="DatabaseSystem.cs" />
+    <Compile Include="AssetSystem\ILoader.cs" />
+    <Compile Include="Entity System\Entity.cs" />
+    <Compile Include="Entity System\EntityEvent.cs" />
+    <Compile Include="Entity System\IEntity.cs" />
+    <Compile Include="Entity System\IEntityController.cs" />
+    <Compile Include="Entity System\SharedDataValue.cs" />
+    <Compile Include="Entity System\TemplateDefination.cs" />
+    <Compile Include="General Systems\EngineServices.cs" />
+    <Compile Include="General Systems\DeltaTime.cs" />
+    <Compile Include="General Systems\IGameSystems.cs" />
+    <Compile Include="General Systems\ISystemsProvider.cs" />
+    <Compile Include="Input System\InputButtons.cs" />
+    <Compile Include="Menu System\DockPanel.cs" />
+    <Compile Include="Menu System\GUIBase.cs" />
+    <Compile Include="Menu System\IDockable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menu System\TextBox.cs" />
+    <Compile Include="Network\NetworkEngine.cs" />
+    <Compile Include="ParticlesSystem\ParticleEmitter2D.cs" />
+    <Compile Include="ParticlesSystem\Particle3DRenderLayer.cs" />
+    <Compile Include="Physics System\BoundingCollider.cs" />
+    <Compile Include="Physics System\Material.cs" />
+    <Compile Include="Physics System\MaterialPair.cs" />
+    <Compile Include="Physics System\PhysicsEngine.cs" />
+    <Compile Include="Renderer\Renderer.cs" />
+    <Compile Include="ScriptSystem\DynamicScript.cs" />
+    <Compile Include="ScriptSystem\IronPython.cs" />
+    <Compile Include="ScriptSystem\IScript.cs" />
+    <Compile Include="ScriptSystem\CompiledScript.cs" />
+    <Compile Include="ScriptSystem\ScriptBase.cs" />
+    <Compile Include="Input System\Voice\CommandDefinition.cs" />
+    <Compile Include="Input System\Voice\InputVoiceListner.cs" />
+    <Compile Include="AssetSystem\LoadingTask.cs" />
+    <Compile Include="Input System\ActionMap.cs" />
+    <Compile Include="Input System\ControllerMap.cs" />
+    <Compile Include="Input System\InputKeyboardListner.cs" />
+    <Compile Include="Input System\InputListner.cs" />
+    <Compile Include="Input System\InputMapping.cs" />
+    <Compile Include="Input System\InputMouseListner.cs" />
+    <Compile Include="Input System\InputSystem.cs" />
+    <Compile Include="Menu System\Button.cs" />
+    <Compile Include="Menu System\Menu.cs" />
+    <Compile Include="RenderSystems\LightRig.cs" />
+    <Compile Include="Serialization\SerializableComponent.cs" />
+    <Compile Include="Serialization\SerializationProxies.cs" />
+    <Compile Include="Sprite System\SpriteRenderLayer.cs" />
+    <Compile Include="Task System\ThreadRunner.cs" />
+    <Compile Include="Task System\ThreadSafeField.cs" />
+    <Compile Include="Task System\ThreadSafeMethod.cs" />
+    <Compile Include="TextEngine\TextEngine.cs" />
+    <Compile Include="Utilities\DebugHelpers.cs" />
+    <Compile Include="Utilities\DynamicEnum.cs" />
+    <Compile Include="Utilities\Extensions.cs" />
+    <Compile Include="Utilities\General.cs" />
+    <Compile Include="Utilities\LogSystem.cs" />
+    <Compile Include="Utilities\UnitTester.cs" />
+    <Compile Include="World Region System\AssetGroup.cs" />
+    <Compile Include="World Region System\StaticMesh.cs" />
+    <Compile Include="Terrain System\Edge.cs" />
+    <Compile Include="Terrain System\NavigationCell.cs" />
+    <Compile Include="Terrain System\NavigationMesh.cs" />
+    <Compile Include="Terrain System\TerrainSystem.cs" />
+    <Compile Include="Terrain System\Triangle.cs" />
+    <Compile Include="Task System\Task.cs" />
+    <Compile Include="Task System\TaskManager.cs" />
+    <Compile Include="Task System\TaskType.cs" />
+    <Compile Include="Task System\ThreadSync.cs" />
+    <Compile Include="Strutures\ConnectionMap.cs" />
+    <Compile Include="Strutures\OctTreeNode.cs" />
+    <Compile Include="Strutures\TreeNode.cs" />
+    <Compile Include="State Machine\State.cs" />
+    <Compile Include="State Machine\StateMachine.cs" />
+    <Compile Include="Sprite System\FontLayer.cs" />
+    <Compile Include="Sprite System\ISprite.cs" />
+    <Compile Include="Sprite System\ISpriteBase.cs" />
+    <Compile Include="Sprite System\IRenderLayer.cs" />
+    <Compile Include="Sprite System\Sprite.cs" />
+    <Compile Include="Sprite System\SpriteAnimation.cs" />
+    <Compile Include="Sprite System\SpriteBase.cs" />
+    <Compile Include="Sprite System\SpriteInfo.cs" />
+    <Compile Include="Sprite System\RenderLayer.cs" />
+    <Compile Include="Sprite System\TextSprite.cs" />
+    <Compile Include="Spacial Partioning Systems\OctreePartioningSystem.cs" />
+    <Compile Include="Physics System\PhysicsBody.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AssetSystem\RegionLoader.cs" />
+    <Compile Include="AssetSystem\StreamChunk.cs" />
+    <Compile Include="AssetSystem\StreamChunkLoader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:\Projects\XmlDataPipeLine\XmlDataPipeLine.csproj">
+      <Project>{9515D30D-D87E-4B40-BCC1-197BBCC69F95}</Project>
+      <Name>XmlDataPipeLine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
