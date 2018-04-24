@@ -17,6 +17,9 @@ using System.Diagnostics;
 
 namespace XenoEngine.Renderer
 {
+    /// <summary>
+    /// This is a handle provided when creating a model in order to access render properties.
+    /// </summary>
     public struct MHandle : IDisposable
     {
         internal int m_nHashCode;
@@ -56,37 +59,44 @@ namespace XenoEngine.Renderer
             PositionChanged = positionChanged;
             OrientationChanged = orientationChanged;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public static bool operator ==(MHandle lhs, MHandle rhs)
         {
             return lhs.m_nHashCode == rhs.m_nHashCode;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public static bool operator !=(MHandle lhs, MHandle rhs)
         {
             return lhs.m_nHashCode != rhs.m_nHashCode;
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public static bool operator ==(MHandle modelKey, Model model)
         {
             return modelKey.m_nHashCode == model.GetHashCode();
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public static bool operator !=(MHandle modelKey, Model model)
         {
             return modelKey.m_nHashCode != model.GetHashCode();
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public bool Visible
         {
             get { return m_bVisibilty; }
@@ -100,7 +110,8 @@ namespace XenoEngine.Renderer
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public Action<Model> Callback
         {
             get { return m_callback; }
@@ -114,7 +125,8 @@ namespace XenoEngine.Renderer
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public Vector3 Position
         {
             get { return m_v3initialPosition; }
@@ -128,7 +140,8 @@ namespace XenoEngine.Renderer
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public Quaternion Orientation
         {
             get { return m_qInitialOrientation; }
@@ -142,9 +155,11 @@ namespace XenoEngine.Renderer
                 }
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         internal int RefNumber { get { return m_nRefNumber; } }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         void IDisposable.Dispose()
         {
             m_qInitialOrientation = Quaternion.Identity;
@@ -158,7 +173,11 @@ namespace XenoEngine.Renderer
             VisibilityChanged = null;
         }
     }
-
+    //----------------------------------------------------------------------------
+    /// <summary>
+    /// This is the decription of the data to be rendered that is submitted to the render queue.
+    /// </summary>
+    //----------------------------------------------------------------------------
     internal class RenderData
     {
         private List<int> m_references;
@@ -169,7 +188,9 @@ namespace XenoEngine.Renderer
             m_references = new List<int>();
             Visible = true;
         }
-
+        //----------------------------------------------------------------------------
+        // Properties
+        //----------------------------------------------------------------------------
         internal void CallbackChanged(Action<Model> callback) { RenderCallback = callback; }
         internal void VisibilityChanged(bool bValue) { Visible = bValue; }
         internal void PositionChanged(Vector3 v3Position) { Position = v3Position; }
@@ -186,14 +207,16 @@ namespace XenoEngine.Renderer
         internal bool Visible { get; set; }
         internal Vector3 Position { get; set; }
         internal Quaternion Orientation { get; set; }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         internal void Dispose()
         {
             Model = null;
             RenderCallback = null;
         }
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     public class RenderEngine : IGameComponent, IDrawable, IDisposable
     {
         private Dictionary<int, List<RenderData>> m_Renderables;

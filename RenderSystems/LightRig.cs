@@ -5,9 +5,11 @@ using Microsoft.Xna.Framework;
 
 namespace XenoEngine.Systems
 {
-    //  This class will hold references to all the lights in a scene..
-    //  so that that lighting data is globally available.
-    //  via singleton/Services access.
+    /// <summary>
+    /// This class will hold references to all the lights in a scene..
+    /// so that that lighting data is globally available.
+    /// via singleton/Services access for use with uniforms etc.
+    /// </summary>
     [Serializable]
     public class Light
     {
@@ -19,7 +21,8 @@ namespace XenoEngine.Systems
         public float        OuterRadius { get; internal set; }
         public float        InnerRadius { get; internal set; }
     }
-
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
     [Serializable]
     public class LightRig
     {
@@ -29,8 +32,9 @@ namespace XenoEngine.Systems
         {
             m_lights = new Dictionary<string, Light>(nMaxLights);
         }
-
-        //NOTE: This only supports directional lights at the moment as they are quick
+        //----------------------------------------------------------------------------
+        // NOTE: This only supports directional lights at the moment as they are quick
+        //----------------------------------------------------------------------------
         public void CreateLight(string szLightName, Vector3 v3Position, Vector3 v3Target)
         {
             Light newLight = new Light();
@@ -40,17 +44,20 @@ namespace XenoEngine.Systems
 
             m_lights.Add(szLightName, newLight);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void DestroyLight(string szLightName)
         {
             m_lights.Remove(szLightName);
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public void DestroyAllLights()
         {
             m_lights.Clear();
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public Light[] Lights 
         {
             get 
@@ -60,7 +67,8 @@ namespace XenoEngine.Systems
                 return aLights;
             }
         }
-
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         public int LightCount { get { return m_lights.Count; } }
     }
 }
