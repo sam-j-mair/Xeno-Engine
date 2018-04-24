@@ -12,12 +12,15 @@ using Microsoft.Xna.Framework;
 
 namespace XenoEngine.EntitySystem
 {
+    //-------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------
     internal struct FieldEntry
     {
         public FieldInfo Field { get; set; }
         public object Value { get; set; }
     }
-
+    //-------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------
     internal class Template
     {
         private List<FieldEntry> m_Fields = new List<FieldEntry>();
@@ -31,7 +34,8 @@ namespace XenoEngine.EntitySystem
 
             m_Fields.Add(newField);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void AddDefine(string szName, dynamic value)
         {
             if (m_CustomDefines == null)
@@ -40,11 +44,13 @@ namespace XenoEngine.EntitySystem
             }
             m_CustomDefines.Add(szName, value);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         internal List<FieldEntry> Fields { get { return m_Fields; } }
         internal Dictionary<string, dynamic> Defines { get { return m_CustomDefines; } }
     }
-
+    //-------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------
     public static class TemplateDefinitions
     {
         public static class TemplateTypes
@@ -64,12 +70,14 @@ namespace XenoEngine.EntitySystem
                 AddType(typeof(string), ConvertValueToString);
                 
             }
-
+            //-------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------
             public static void AddType(Type type, Func<string[], object> predicate)
             {
                 m_Types.Add(type.ToString(), predicate);
             }
-
+            //-------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------
             public static Func<string[], object> GetConverter(string szType)
             {
                 Func<string[], object> convertMethod;
@@ -80,12 +88,14 @@ namespace XenoEngine.EntitySystem
                 }
                 return null;
             }
-
+            //-------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------
             public static object ConvertValueToString(string[] aszValue)
             {
                 return aszValue[0];
             }
-
+            //-------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------
             public static object ConvertValueToFloat(string[] aszValue)
             {
                 float fValue;
@@ -95,7 +105,8 @@ namespace XenoEngine.EntitySystem
                 }
                 return null;
             }
-
+            //-------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------
             public static object ConvertValueToBool(string[] aszValue)
             {
                 bool bValue;
@@ -105,7 +116,8 @@ namespace XenoEngine.EntitySystem
                 }
                 return null;
             }
-
+            //-------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------
             public static object ConvertValueToInt(string[] aszValue)
             {
                 int nValue;
@@ -115,7 +127,8 @@ namespace XenoEngine.EntitySystem
                 }
                 return null;
             }
-
+            //-------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------
             public static object ConvertValueToLong(string[] aszValue)
             {
                 long lValue;
@@ -125,7 +138,8 @@ namespace XenoEngine.EntitySystem
                 }
                 return lValue;
             }
-
+            //-------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------
             public static object ConvertValueToShort(string[] aszValue)
             {
                 short sValue;
@@ -135,7 +149,8 @@ namespace XenoEngine.EntitySystem
                 }
                 return null;
             }
-
+            //-------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------
             public static object ConvertValueToByte(string[] aszValue)
             {
                 byte byValue;
@@ -145,7 +160,8 @@ namespace XenoEngine.EntitySystem
                 }
                 return null;
             }
-
+            //-------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------
             public static object ConvertValueToVector2(string[] aszValue)
             {
                 object nXValue;
@@ -160,7 +176,8 @@ namespace XenoEngine.EntitySystem
                 }
                 return null;
             }
-
+            //-------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------
             public static object ConvertValueToVector3(string[] aszValue)
             {
                 object nZValue;
@@ -180,9 +197,11 @@ namespace XenoEngine.EntitySystem
                 return null;
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         private static Dictionary<Type, Template> m_Templates = new Dictionary<Type, Template>();
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public static void PreLoadTemplates()
         {
             string szTemplateDirectory = EngineServices.GetSystem<IGameSystems>().WorkingDirectory + @"\Templates";
@@ -205,7 +224,8 @@ namespace XenoEngine.EntitySystem
             }
             
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         private static bool LoadTemplate(Type type, XDocument template)
         {
             bool bResult = false;
@@ -283,7 +303,8 @@ namespace XenoEngine.EntitySystem
 
             return bResult;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public static dynamic GetCustomDefine(Type type, string szDefineName)
         {
             Template template;
@@ -310,7 +331,8 @@ namespace XenoEngine.EntitySystem
             }
             return null;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public static bool LoadTemplateDefaults(object instance)
         {
             bool bRslt = false;

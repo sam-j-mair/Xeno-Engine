@@ -14,11 +14,14 @@ namespace XenoEngine.EntitySystem
         dynamic m_OldValue;
         bool m_bUpdated;
 
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public SharedDataValue(Entity entity)
         {
             OwnEntity = entity;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public dynamic Value
         {
             get { return m_Value; }
@@ -36,7 +39,8 @@ namespace XenoEngine.EntitySystem
                 }
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public bool Updated
         {
             get
@@ -50,6 +54,8 @@ namespace XenoEngine.EntitySystem
         internal Entity OwnEntity { get; set; }
         public bool IsNetworked { get; set; }
     }
+    //-------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------
     public struct DataDefinition
     {
         public string m_szName;
@@ -61,16 +67,12 @@ namespace XenoEngine.EntitySystem
             m_szName = szName;
         }
     }
-
+    //-------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------
     public struct DataPacket
     {
         Dictionary<string, dynamic> m_dataObjects;
 
-        //         public MessageData()
-        //         {
-        //             m_dataObjects = new Dictionary<string, object>();
-        //         }
-        // 
         public DataPacket(params DataDefinition[] aData)
         {
             m_dataObjects = new Dictionary<string, object>();
@@ -80,14 +82,16 @@ namespace XenoEngine.EntitySystem
                 m_dataObjects.Add(dataDef.m_szName, dataDef.m_data);
             }
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public void AddData(string szName, object data)
         {
             LazyInit();
 
             m_dataObjects.Add(szName, data);
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         public object GetData(string szName)
         {
             object value = null;
@@ -97,7 +101,8 @@ namespace XenoEngine.EntitySystem
 
             return value;
         }
-
+        //-------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         private void LazyInit()
         {
             // lazy initialization
