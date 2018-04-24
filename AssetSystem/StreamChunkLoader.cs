@@ -13,8 +13,9 @@ namespace XenoEngine.Systems
         {
             m_iServerProvider = iServerProvider;
         }
-
+        //----------------------------------------------------------------------------------
         //This will be designed to load stream chunks
+        //----------------------------------------------------------------------------------
         public void Load(Object task)
         {
             Task<Object> theTask = task as Task<Object>;
@@ -23,7 +24,8 @@ namespace XenoEngine.Systems
             streamChunk = StreamAssets((String)theTask.UserData);
             theTask.ReturnData = streamChunk;
         }
-
+        //----------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------
         private StreamChunk StreamAssets(String szAssetGroupName)
         {
             List<LoadingTask> loadingTasks = new List<LoadingTask>();
@@ -85,7 +87,8 @@ namespace XenoEngine.Systems
 
             return streamChunk;
         }
-
+        //----------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------
         public void Unload(Object task)
         {
             Task<Object> theTask = task as Task<Object>;
@@ -95,7 +98,8 @@ namespace XenoEngine.Systems
             TaskManager.Instance.GetTaskByHandle(handle).Event.WaitOne();
             theTask.ReturnData = theAsset;
         }
-       
+        //----------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------
         public void Dispose()
         {
             //This is where the clean up will occur.

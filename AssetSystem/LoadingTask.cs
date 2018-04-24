@@ -10,8 +10,6 @@ namespace XenoEngine.Systems
     
     class LoadingTask
     {
-        //ManualResetEvent    m_resetEvent;
-        
         public void Load(object task)
         {
             Task<Object> theTask = task as Task<Object>;
@@ -38,7 +36,8 @@ namespace XenoEngine.Systems
 
             theTask.Event.Set();
         }
-
+        //----------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------
         public Object AssetObject { get; }
         public int HashCode { get; }
         
