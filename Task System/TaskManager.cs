@@ -7,47 +7,50 @@ using System.Threading;
 
 namespace XenoEngine.Systems
 {
+    //----------------------------------------------------------------------------------
+    /// <summary>
+    /// This is handle is the identifier for the task and it is used to access properties of the task
+    /// </summary>
+    //----------------------------------------------------------------------------------
     [Serializable]
     public struct TaskHandle
     {
+        //Members
         private int m_value;
-
+        //----------------------------------------------------------------------------------
+        /// <summary>
+        /// contructor
+        /// </summary>
+        /// <param name="nValue">identity id </param>
+        //----------------------------------------------------------------------------------
         public TaskHandle(int nValue)
         {
             m_value = nValue;
         }
-
+        //----------------------------------------------------------------------------------
+        /// <summary>
+        /// over ride logical equals and not equals
+        /// </summary>
+        /// <param name="lhs">left hand argument</param>
+        /// <param name="rhs">right hand argument</param>
+        /// <returns></returns>
+        //----------------------------------------------------------------------------------
         public static bool operator ==(TaskHandle lhs, TaskHandle rhs)
         {
             return lhs.m_value == rhs.m_value;
         }
-
+        //----------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------
         public static bool operator !=(TaskHandle lhs, TaskHandle rhs)
         {
             return lhs.m_value != rhs.m_value;
         }
-
-        public static TaskHandle operator +(TaskHandle lhs, TaskHandle rhs)
-        {
-            return new TaskHandle(lhs.m_value + rhs.m_value);
-        }
-
-        public static TaskHandle operator -(TaskHandle lhs, TaskHandle rhs)
-        {
-            return new TaskHandle(lhs.m_value - rhs.m_value);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
     }
-
+    //----------------------------------------------------------------------------------
+    /// <summary>
+    /// Class for queued tasks. 
+    /// </summary>
+    //----------------------------------------------------------------------------------
     class QueueEntry
     {
         TaskType m_taskType;
@@ -62,13 +65,16 @@ namespace XenoEngine.Systems
         public TaskType TaskType { get { return m_taskType; } }
         public float TimeInQueue { get { return m_fTimeInQueue; } set { m_fTimeInQueue = value; } }
     }
-
-    //this class is used to allow the thread to store persistent data and manage its self
+    //----------------------------------------------------------------------------------
+    /// <summary>
+    /// This class is used to allow the thread to store persistent data and manage its self
+    /// </summary>
+    //----------------------------------------------------------------------------------
     class ThreadData
     {
-        private float   m_fTimeIdle;
-        private int     m_nNumberOfTasks;
-        private int     m_nThreadID;
+        private float m_fTimeIdle;
+        private int m_nNumberOfTasks;
+        private int m_nThreadID;
 
         public ThreadData()
         {
@@ -81,30 +87,33 @@ namespace XenoEngine.Systems
         public int NumberOfTasks { get { return m_nNumberOfTasks; } set { m_nNumberOfTasks = value; } }
         public int ThreadID { get { return m_nThreadID; } set { m_nThreadID = value; } }
     }
-
-    //This is my take on the .NET ThreadPools
+    //----------------------------------------------------------------------------------
+    /// <summary>
+    /// This is my take on the .NET ThreadPools 
+    /// </summary>
+    //----------------------------------------------------------------------------------
     public class TaskManager : IDisposable
     {
         #region Members
-        private int                                 m_nTaskCount;
-        private int                                 m_nMinThreads;
-        private int                                 m_nMaxThreads;
+        private int m_nTaskCount;
+        private int m_nMinThreads;
+        private int m_nMaxThreads;
 
         //Two locks are used here in order to avoid locking when it is not
         //needed
-        [NonSerialized]private ReaderWriterLockSlim                m_queueLock;
-        [NonSerialized]private ReaderWriterLockSlim                m_dictionaryLock;
-        [NonSerialized]private ReaderWriterLockSlim                m_threadLock;
+        [NonSerialized] private ReaderWriterLockSlim m_queueLock;
+        [NonSerialized] private ReaderWriterLockSlim m_dictionaryLock;
+        [NonSerialized] private ReaderWriterLockSlim m_threadLock;
         //A Dictionary of threads the int will be used as an id so that the 
         //task can retrieve the thread.
 
         //NOTE: Probably don't actually need to store threads at all.
         //      but will store them for now for at least debugging purposes.
-        private List<Thread>                        m_threads;
-        private Queue<QueueEntry>                   m_taskQueue;
-        private Queue<Thread>                       m_availableThreads;
-        private Dictionary<TaskHandle, TaskType>    m_tasks;
-        
+        private List<Thread> m_threads;
+        private Queue<QueueEntry> m_taskQueue;
+        private Queue<Thread> m_availableThreads;
+        private Dictionary<TaskHandle, TaskType> m_tasks;
+
         #endregion
         //-------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------
@@ -113,7 +122,7 @@ namespace XenoEngine.Systems
         public static TaskManager Instance { get { return m_instance; } }
         public static void CreateStaticInstance(int nMinThreads, int nMaxThreads)
         {
-            if(m_instance == null)
+            if (m_instance == null)
                 m_instance = new TaskManager(nMinThreads, nMaxThreads, true);
         }
         #endregion
@@ -150,12 +159,6 @@ namespace XenoEngine.Systems
         }
         //-------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------
-        ~TaskManager()
-        {
-
-        }
-        //-------------------------------------------------------------------------------
-        //-------------------------------------------------------------------------------
         [OnSerialized]
         protected void OnDeserialized(StreamingContext context)
         {
@@ -163,24 +166,29 @@ namespace XenoEngine.Systems
             m_queueLock = new ReaderWriterLockSlim();
             m_threadLock = new ReaderWriterLockSlim();
         }
-        //-------------------------------------------------------------------------------
-        //-------------------------------------------------------------------------------
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
         #endregion
         //-------------------------------------------------------------------------------
+        /// <summary>
+        /// Creates a new task.
+        /// </summary>
+        /// <typeparam name="T">T is the stored data type</typeparam>
+        /// <param name="userData">user data to be used in the task.</param>
+        /// <param name="task">the thread for the task.</param>
+        /// <param name="bContinuousExecution">if the task is to continuously execute and readd its self.</param>
+        /// <returns></returns>
         //-------------------------------------------------------------------------------
         #region Create Task Methods
         public TaskHandle CreateTask<T>(object userData, ParameterizedThreadStart task, bool bContinuousExecution)
         {
+            //create reset event object.
             ManualResetEvent resetEvent = new ManualResetEvent(false);
             Task<T> theTask = new Task<T>(resetEvent, userData, task, bContinuousExecution);
             theTask.Name = "Task " + m_nTaskCount;
+            //create new task handle to identify this task
             TaskHandle taskHandle = new TaskHandle(m_nTaskCount++);
             theTask.Handle = taskHandle;
 
+            //lock and add task to dictionary.
             m_dictionaryLock.TryEnterWriteLock(5);
             {
                 m_tasks.Add(taskHandle, theTask);
@@ -190,6 +198,15 @@ namespace XenoEngine.Systems
             return taskHandle;
         }
         //-------------------------------------------------------------------------------
+        /// <summary>
+        /// overloaded: Creates a task.
+        /// </summary>
+        /// <typeparam name="T">data type.</typeparam>
+        /// <param name="taskCompletedCallBack"> callback upon complete.</param>
+        /// <param name="userData">user data to be used in task.</param>
+        /// <param name="task">thread</param>
+        /// <param name="bContinuousExecution">if allow continuous execution.</param>
+        /// <returns></returns>
         //-------------------------------------------------------------------------------
         public TaskHandle CreateTask<T>(TaskCompleted taskCompletedCallBack, object userData, ParameterizedThreadStart task, bool bContinuousExecution)
         {
@@ -207,6 +224,15 @@ namespace XenoEngine.Systems
             return taskHandle;
         }
         //-------------------------------------------------------------------------------
+        /// <summary>
+        /// overloaded: Creates a task.
+        /// </summary>
+        /// <typeparam name="T">data type.</typeparam>
+        /// <param name="aTaskCompletedCallBacks"> callback array upon complete.</param>
+        /// <param name="userData">user data to be used in task.</param>
+        /// <param name="task">thread</param>
+        /// <param name="bContinuousExecution">if allow continuous execution.</param>
+        /// <returns></returns>
         //-------------------------------------------------------------------------------
         public TaskHandle CreateTask<T>(TaskCompleted[] aTaskCompletedCallBacks, object userData, ParameterizedThreadStart task, bool bContinuousExecution)
         {
@@ -225,6 +251,11 @@ namespace XenoEngine.Systems
         }
         #endregion
         //-------------------------------------------------------------------------------
+        /// <summary>
+        /// accessors
+        /// </summary>
+        /// <param name="taskHandle">the handle for the task to access.</param>
+        /// <returns>Task</returns>
         //-------------------------------------------------------------------------------
         #region Get Functions
         public TaskType GetTaskByHandle(TaskHandle taskHandle)
@@ -254,6 +285,12 @@ namespace XenoEngine.Systems
             return resetEvent;
         }
         //-------------------------------------------------------------------------------
+        /// <summary>
+        /// Get return data from task after completion.
+        /// </summary>
+        /// <typeparam name="T">data type</typeparam>
+        /// <param name="taskHandle">handle for particular task.</param>
+        /// <returns>data from task.</returns>
         //-------------------------------------------------------------------------------
         public T GetReturnData<T>(TaskHandle taskHandle)
         {
@@ -278,36 +315,26 @@ namespace XenoEngine.Systems
         }
         #endregion
         //-------------------------------------------------------------------------------
+        /// <summary>
+        /// start created task.
+        /// </summary>
+        /// <param name="taskHandle">task identifier.</param>
         //-------------------------------------------------------------------------------
         #region Execute / Destory
         public void ExecuteTask(TaskHandle taskHandle)
         {
             TaskType taskType = GetTaskByHandle(taskHandle);
             QueueEntry queueEntry = new QueueEntry(taskType);
-            
+
             m_queueLock.TryEnterWriteLock(1000);
             m_taskQueue.Enqueue(queueEntry);
             m_queueLock.ExitWriteLock();
-
-            //CheckToWakeThreads(m_taskQueue.Count);
         }
-
-//         private void CheckToWakeThreads(int nTaskCount)
-//         {
-//             int nthreadsToWake = 0;
-// 
-//             
-//             nthreadsToWake = 1;
-// 
-//             m_threadLock.TryEnterUpgradeableReadLock();
-// 
-//             if(m_)
-//             m_threadLock.EnterWriteLock();
-// 
-// 
-//         }
-
         //-------------------------------------------------------------------------------
+        /// <summary>
+        /// Destroys created task.
+        /// </summary>
+        /// <param name="taskHandle">task identifier.</param>
         //-------------------------------------------------------------------------------
         public void DestroyTask(TaskHandle taskHandle)
         {
@@ -323,6 +350,10 @@ namespace XenoEngine.Systems
         #endregion
         //-------------------------------------------------------------------------------
         // This wraps the execution of a tasks delegate in a call to allow extra functionality.
+        /// <summary>
+        /// Thread process for running tasks.
+        /// </summary>
+        /// <param name="threadInfo">upon creation.</param>
         //-------------------------------------------------------------------------------
         #region ThreadProc
         private void ThreadProcess(object threadInfo)
@@ -377,7 +408,7 @@ namespace XenoEngine.Systems
                         PropertyInfo property = type.GetProperty("ReturnData");
                         MethodInfo methodInfo = property.GetGetMethod();
 
-                        
+
                         taskType.FireCompletedEvent(methodInfo.Invoke(taskType, null));
 
                         //This allows the task to be continuously executed.
@@ -387,11 +418,6 @@ namespace XenoEngine.Systems
                             DestroyTask(taskType.Handle);
                     }
                 }
-
-//                 else
-//                 {
-//                     Thread.Sleep(Timeout.Infinite);
-//                 }
             }
         }
         #endregion
