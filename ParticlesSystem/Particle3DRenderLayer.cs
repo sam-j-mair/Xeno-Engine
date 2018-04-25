@@ -36,8 +36,9 @@ namespace XenoEngine.ParticleSystems
         // The time (in seconds) at which this particle was created.
         public float Time;
 
-
+        //----------------------------------------------------------------------------
         // Describe the layout of this vertex structure.
+        //----------------------------------------------------------------------------
         public static readonly VertexDeclaration VertexDeclaration = new VertexDeclaration
         (
             new VertexElement(0, VertexElementFormat.Short2,
@@ -75,6 +76,11 @@ namespace XenoEngine.ParticleSystems
         [NonSerialized] EffectParameter m_effectTimeParameter;
         
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// C/TOR
+        /// </summary>
+        /// <param name="nMaxItems">max number of items.</param>
+        /// <param name="settings">the settings for the particle layer.</param>
         //----------------------------------------------------------------------------
         public Particle3DRenderLayer(int nMaxItems, EffectSettings settings)
             : base(nMaxItems)
@@ -122,6 +128,10 @@ namespace XenoEngine.ParticleSystems
             InitialiseEffect(null);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// Initialize Effect uniforms for shader.
+        /// </summary>
+        /// <param name="settings"></param>
         //----------------------------------------------------------------------------
         public virtual void InitialiseEffect(dynamic settings = null)
         {
@@ -157,6 +167,10 @@ namespace XenoEngine.ParticleSystems
             parameters["Texture"].SetValue(texture);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// Draws particles to the screen.
+        /// </summary>
+        /// <param name="deltaTime"></param>
         //----------------------------------------------------------------------------
         public override void Draw(DeltaTime deltaTime)
         {
@@ -226,6 +240,9 @@ namespace XenoEngine.ParticleSystems
             base.Draw(deltaTime);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// builds the vertex buffer from the render info list.
+        /// </summary>
         //----------------------------------------------------------------------------
         private void BuildVertexBuffer()
         {
