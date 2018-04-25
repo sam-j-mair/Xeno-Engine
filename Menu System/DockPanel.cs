@@ -122,8 +122,6 @@ namespace XenoEngine.Systems.MenuSystem
 
                             m_pixelSpace.AddAfter(m_pixelSpace.First, placeHolder);
 
-                            
-
                             location.Bounds = new Rectangle(bounds.X,
                                 bounds.Y + bounds.Height + OBJECT_OFFSET,
                                 location.Bounds.Width,

@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using XenoEngine.Serialization;
 using XenoEngine.GeneralSystems;
-using Microsoft.Xna.Framework;
 using System.Threading;
 using XenoEngine.Systems.Sprite_Systems;
 using XenoEngine.Utilities;
 using XenoEngine.Systems;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 
 //Aliases
@@ -20,6 +17,9 @@ using System.ComponentModel;
 
 namespace XenoEngine.Systems.MenuSystem
 {
+    /// <summary>
+    /// input states on gui objects
+    /// </summary>
     enum GUIInteractStates
     {
         RollOn,
@@ -27,22 +27,25 @@ namespace XenoEngine.Systems.MenuSystem
         Idle
     }
     //----------------------------------------------------------------------------
+    /// <summary>
+    /// Case class for all gui items.
+    /// </summary>
     //----------------------------------------------------------------------------
     public abstract class GUIObject : SerializableComponent, IGameComponent, IUpdateable, IDockable, IDisposable
     {
         #region PRIVATE
-        private GUINode                                         m_treeNode;
-        private GUIInteractStates                               m_currentState;
-        private IScriptUpdateable<GUIObject>                      m_currentScript;
-        private Dictionary<string, IScriptUpdateable<GUIObject>>  m_buttonScripts;
-        private MouseObserver                                   m_mouseObserver;
-        private int                                             m_nUpdateOrder;
-        private bool                                            m_bEnabled;
+        private GUINode                                             m_treeNode;
+        private GUIInteractStates                                   m_currentState;
+        private IScriptUpdateable<GUIObject>                        m_currentScript;
+        private Dictionary<string, IScriptUpdateable<GUIObject>>    m_buttonScripts;
+        private MouseObserver                                       m_mouseObserver;
+        private int                                                 m_nUpdateOrder;
+        private bool                                                m_bEnabled;
         #endregion
 
         #region PROTECTED
-        protected Rectangle                                     m_BoundingRectangle;
-        protected bool                                          m_bSelected;
+        protected Rectangle                                         m_BoundingRectangle;
+        protected bool                                              m_bSelected;
         #endregion
 
         #region PUBLIC
@@ -81,6 +84,10 @@ namespace XenoEngine.Systems.MenuSystem
         public dynamic UserData { get; set; }
         public bool Active { get; private set; }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// calculates the bounding box of the sprite
+        /// </summary>
+        /// <param name="sprite">the sprite to use</param>
         //----------------------------------------------------------------------------
         protected void CalculateBoundingRectangle(Sprite sprite)
         {
@@ -89,31 +96,47 @@ namespace XenoEngine.Systems.MenuSystem
             m_BoundingRectangle = new Rectangle((int)v2Position.X, (int)v2Position.Y, texture2D.Width, texture2D.Height);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// overloaded method.
+        /// </summary>
+        /// <param name="v2Pos">position/origin</param>
+        /// <param name="texture">the texture to use</param>
         //----------------------------------------------------------------------------
         protected void CalculateBoundingRectangle(Vector2 v2Pos, Texture2D texture)
         {
             m_BoundingRectangle = new Rectangle((int)v2Pos.X, (int)v2Pos.Y, texture.Width, texture.Height);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// connect up events from buttons to mouse.
+        /// </summary>
+        /// <param name="inputSytem">the input that is being accessed</param>
         //----------------------------------------------------------------------------
         protected virtual void ConnectedEvents(Input inputSytem)
         {
             ActionMap actionMap = inputSytem.GetController((int)Controller.Player_1_Mouse);
 
-            actionMap.TryCreateandSetHandler("LeftClick", MouseButton.LeftButton, ButtonState.Pressed, false, OnClickEvent);
-            actionMap.TryCreateandSetHandler("LeftClickPolling", MouseButton.LeftButton, ButtonState.Pressed, true, OnClickEventPolling);
-            actionMap.TryCreateandSetHandler("LeftClickReleased",MouseButton.LeftButton, ButtonState.Released, false, OnUnClickEvent);
+            if (actionMap != null)
+            {
+                actionMap.TryCreateandSetHandler("LeftClick", MouseButton.LeftButton, ButtonState.Pressed, false, OnClickEvent);
+                actionMap.TryCreateandSetHandler("LeftClickPolling", MouseButton.LeftButton, ButtonState.Pressed, true, OnClickEventPolling);
+                actionMap.TryCreateandSetHandler("LeftClickReleased", MouseButton.LeftButton, ButtonState.Released, false, OnUnClickEvent);
+            }
 
             OnOver += OnOverEvent;
             OnOff += OnOffEvent;
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// set up C# scripts for buttons.
+        /// </summary>
+        /// <param name="actionScripts">a list of button scripts.</param>
         //----------------------------------------------------------------------------
-        protected virtual void InitialiseScripts(List<IScriptUpdateable<Button>> buttonScripts)
+        protected virtual void InitialiseScripts(List<IScriptUpdateable<Button>> actionScripts)
         {
-            if (buttonScripts != null)
+            if (actionScripts != null)
             {
-                foreach (IScriptUpdateable<GUIObject> script in buttonScripts)
+                foreach (IScriptUpdateable<GUIObject> script in actionScripts)
                 {
                     if (script != null)
                     {
@@ -127,6 +150,10 @@ namespace XenoEngine.Systems.MenuSystem
             }
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// set gui objects active.
+        /// </summary>
+        /// <param name="bActive">true or false</param>
         //----------------------------------------------------------------------------
         public virtual void SetActive(bool bActive)
         {
@@ -143,8 +170,12 @@ namespace XenoEngine.Systems.MenuSystem
         //----------------------------------------------------------------------------
         protected virtual void OnSelectEvent(Button sender) { }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// OnOver Event
+        /// </summary>
+        /// <param name="guiObject">object called from event.</param>
         //----------------------------------------------------------------------------
-        protected virtual void OnOverEvent(GUIObject button)
+        protected virtual void OnOverEvent(GUIObject guiObject)
         {
             if (Active)
             {
@@ -160,8 +191,12 @@ namespace XenoEngine.Systems.MenuSystem
             }
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// OnOffEvent
+        /// </summary>
+        /// <param name="guiObject">object to be called from event.</param>
         //----------------------------------------------------------------------------
-        protected virtual void OnOffEvent(GUIObject button)
+        protected virtual void OnOffEvent(GUIObject guiObject)
         {
             if (Active)
             {
@@ -178,6 +213,10 @@ namespace XenoEngine.Systems.MenuSystem
             }
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// OnClickEvent 
+        /// </summary>
+        /// <param name="sender">sender of event.</param>
         //----------------------------------------------------------------------------
         protected virtual void OnClickEvent(object sender)
         {
@@ -200,6 +239,10 @@ namespace XenoEngine.Systems.MenuSystem
             }
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// OnUnClickEvent.
+        /// </summary>
+        /// <param name="sender">sender of event.</param>
         //----------------------------------------------------------------------------
         protected virtual void OnUnClickEvent(object sender)
         {
@@ -222,6 +265,10 @@ namespace XenoEngine.Systems.MenuSystem
             }
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// Polling method to detect OnClickEvent. 
+        /// </summary>
+        /// <param name="sender">sender of event.</param>
         //----------------------------------------------------------------------------
         protected virtual void OnClickEventPolling(object sender)
         {
@@ -245,6 +292,9 @@ namespace XenoEngine.Systems.MenuSystem
 
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// clears current script
+        /// </summary>
         //----------------------------------------------------------------------------
         private void ScriptComplete()
         {
@@ -260,19 +310,30 @@ namespace XenoEngine.Systems.MenuSystem
             GC.SuppressFinalize(this);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// add child guiObject to this guiobject.
+        /// </summary>
+        /// <param name="guiObject">child to add.</param>
         //----------------------------------------------------------------------------
-        public void AddChild(GUIObject button)
+        public void AddChild(GUIObject guiObject)
         {
-            Debug.Assert(button != this);
-            m_treeNode.AddChild(button.m_treeNode);
+            Debug.Assert(guiObject != this);
+            m_treeNode.AddChild(guiObject.m_treeNode);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// remove child guiObject from this guiObject
+        /// </summary>
+        /// <param name="guiObject">child to remove.</param>
         //----------------------------------------------------------------------------
-        public void RemoveChild(Button button)
+        public void RemoveChild(Button guiObject)
         {
-            m_treeNode.RemoveChild(button.m_treeNode);
+            m_treeNode.RemoveChild(guiObject.m_treeNode);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// recurse through the tree of nodes and deparent.
+        /// </summary>
         //----------------------------------------------------------------------------
         private void RecursiveDeparent()
         {
@@ -283,6 +344,10 @@ namespace XenoEngine.Systems.MenuSystem
             }
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// update script.
+        /// </summary>
+        /// <param name="deltaTime"></param>
         //----------------------------------------------------------------------------
         public virtual void Update(DeltaTime deltaTime)
         {
@@ -294,6 +359,9 @@ namespace XenoEngine.Systems.MenuSystem
             }
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// check for roll on and roll off events.
+        /// </summary>
         //----------------------------------------------------------------------------
         protected virtual void CheckforRoll()
         {
@@ -319,6 +387,10 @@ namespace XenoEngine.Systems.MenuSystem
             }
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// check if the cursor is over the button.
+        /// </summary>
+        /// <returns>true of false.</returns>
         //----------------------------------------------------------------------------
         protected virtual bool CheckInteraction()
         {
@@ -401,6 +473,9 @@ namespace XenoEngine.Systems.MenuSystem
             }
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// check if is enabled
+        /// </summary>
         //----------------------------------------------------------------------------
         public bool Enabled
         {
