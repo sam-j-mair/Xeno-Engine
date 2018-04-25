@@ -85,6 +85,12 @@ namespace XenoEngine.Systems
             return null;
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// get the input listener for a particular controller.
+        /// </summary>
+        /// <param name="eControllerType">the type of controller that is being requested.</param>
+        /// <param name="ePlayerIndex">the index of the controller.</param>
+        /// <returns>the requested input listener or null.</returns>
         //----------------------------------------------------------------------------
         public InputListner GetInputListner(ControllerType eControllerType, PlayerIndex ePlayerIndex = PlayerIndex.One)
         {
@@ -100,6 +106,10 @@ namespace XenoEngine.Systems
             return null;
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// updates listeners.
+        /// </summary>
+        /// <param name="gameTime"></param>
         //----------------------------------------------------------------------------
         public void Update(GameTime gameTime)
         {
@@ -109,6 +119,11 @@ namespace XenoEngine.Systems
             }
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// get the input controller actionmap.
+        /// </summary>
+        /// <param name="nControllerIndex">index of the controller.</param>
+        /// <returns>action map or null.</returns>
         //----------------------------------------------------------------------------
         public ActionMap GetController(int nControllerIndex)
         {

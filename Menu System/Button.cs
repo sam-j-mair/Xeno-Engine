@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using XenoEngine.GeneralSystems;
 using XenoEngine.Serialization;
 using XenoEngine.Systems.Sprite_Systems;
@@ -21,8 +19,6 @@ namespace XenoEngine.Systems.MenuSystem
         //Events
         public event Action<Button>                 EventComplete;
         private string                              m_szFontName;
-
-        
 
         // a readonly proxy object will be here that will allow detection of
         // mouse position and clicks etc.
@@ -44,6 +40,15 @@ namespace XenoEngine.Systems.MenuSystem
             CalculateBoundingRectangle(m_sprite);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// C/TOR
+        /// </summary>
+        /// <param name="szAssetName">name of the asset</param>
+        /// <param name="szFontName">font name if there is one.</param>
+        /// <param name="v3Position">initial position.</param>
+        /// <param name="colour">initial colour</param>
+        /// <param name="streamChunk">the streamChunk it belong to.</param>
+        /// <param name="buttonScripts">any scripts for the buttons.</param>
         //----------------------------------------------------------------------------
         public Button(  string szAssetName,
                         string szFontName,
