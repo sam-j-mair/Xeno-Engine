@@ -1,7 +1,11 @@
-﻿using System;
+﻿#define MT_LOAD
+
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using XmlDataPipeLine;
+
+
 
 namespace XenoEngine.Systems
 {
@@ -44,28 +48,31 @@ namespace XenoEngine.Systems
 
             foreach (AssetDefinition assetDef in streamChunkDefinition.m_assetDefinitions)
             {
+#if MT_LOAD
                 #region Multi-Threaded Version
-                
+
                 LoadingTask loadTask = new LoadingTask();
                 TaskHandle taskHandle = TaskManager.Instance.CreateTask<Object>(new LoadingData(assetDef, regionLoader), loadTask.Load, false);
                 aTaskHandles.Add(taskHandle);
                 loadingTasks.Add(loadTask);
 
                 #endregion
+#else
                 #region Single-Thread Version
-//                 Object assetObject;
-//                 String szFullName = assetDef.m_szDirectory + assetDef.m_szAssetName;
-//                 Type creationType;
-// 
-//                 creationType = Type.GetType(assetDef.m_szAssetType, true);
-//                 Debug.Assert(creationType != null);
-// 
-//                 MethodInfo genericMethod = methodInfo.MakeGenericMethod(creationType);
-//                 assetObject = genericMethod.Invoke(contentManager, new object[] { szFullName });
-//                 Debug.Assert(assetObject != null);
-// 
-//                 streamChunk.AddAsset(assetObject);
+                //                 Object assetObject;
+                //                 String szFullName = assetDef.m_szDirectory + assetDef.m_szAssetName;
+                //                 Type creationType;
+                // 
+                //                 creationType = Type.GetType(assetDef.m_szAssetType, true);
+                //                 Debug.Assert(creationType != null);
+                // 
+                //                 MethodInfo genericMethod = methodInfo.MakeGenericMethod(creationType);
+                //                 assetObject = genericMethod.Invoke(contentManager, new object[] { szFullName });
+                //                 Debug.Assert(assetObject != null);
+                // 
+                //                 streamChunk.AddAsset(assetObject);
                 #endregion
+#endif
             }
 
             //These two steps could be merged to one...saving memory ...but doing it like this for clarity atm.
