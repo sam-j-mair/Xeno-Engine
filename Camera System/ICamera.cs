@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework;
 
 namespace XenoEngine
 {
+    /// <summary>
+    /// Camera Object interface.
+    /// </summary>
     public interface ICamera
     {
         Matrix ViewMatrix { get; }

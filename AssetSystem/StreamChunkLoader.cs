@@ -29,6 +29,11 @@ namespace XenoEngine.Systems
             theTask.ReturnData = streamChunk;
         }
         //----------------------------------------------------------------------------------
+        /// <summary>
+        /// Stream assets in.
+        /// </summary>
+        /// <param name="szAssetGroupName"></param>
+        /// <returns></returns>
         //----------------------------------------------------------------------------------
         private StreamChunk StreamAssets(String szAssetGroupName)
         {
@@ -95,6 +100,10 @@ namespace XenoEngine.Systems
             return streamChunk;
         }
         //----------------------------------------------------------------------------------
+        /// <summary>
+        /// unload assets
+        /// </summary>
+        /// <param name="task"></param>
         //----------------------------------------------------------------------------------
         public void Unload(Object task)
         {
