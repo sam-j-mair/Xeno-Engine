@@ -123,7 +123,6 @@
     <Compile Include="Serialization\SerializableComponent.cs" />
     <Compile Include="Serialization\SerializationProxies.cs" />
     <Compile Include="Sprite System\SpriteRenderLayer.cs" />
-    <Compile Include="Task System\ThreadRunner.cs" />
     <Compile Include="Task System\ThreadSafeField.cs" />
     <Compile Include="Task System\ThreadSafeMethod.cs" />
     <Compile Include="TextEngine\TextEngine.cs" />

@@ -7,6 +7,13 @@ namespace Xeno_Engine.Task_System
         private dynamic m_pfFunction;
         private object m_lockObject;
 
+        //--------------------------------------------------------------
+        /// <summary>
+        /// C/TOR
+        /// </summary>
+        /// <param name="lockObject">the object which is used to lock with.</param>
+        /// <param name="pfFunction">the delegate the is to be called upon locking.</param>
+        //--------------------------------------------------------------
         public ThreadSafeMethod(TDelegate pfFunction)
         {
             if (pfFunction == null || pfFunction.GetType().BaseType != typeof(MulticastDelegate))
@@ -16,6 +23,11 @@ namespace Xeno_Engine.Task_System
             m_pfFunction = pfFunction;
         }
         //--------------------------------------------------------------
+        /// <summary>
+        /// C/Tor
+        /// </summary>
+        /// <param name="lockObject">the object which is used to lock with.</param>
+        /// <param name="pfFunction">the delegate the is to be called upon locking.</param>
         //--------------------------------------------------------------
         public ThreadSafeMethod(object lockObject, TDelegate pfFunction)
         {
@@ -23,6 +35,11 @@ namespace Xeno_Engine.Task_System
             m_pfFunction = pfFunction;
         }
         //--------------------------------------------------------------
+        /// <summary>
+        /// call the underlying delegate.
+        /// </summary>
+        /// <param name="aParams">input parameters</param>
+        /// <returns></returns>
         //--------------------------------------------------------------
         public dynamic Function(params object[] aParams)
         {
@@ -38,6 +55,11 @@ namespace Xeno_Engine.Task_System
             return value;
         }
         //--------------------------------------------------------------
+        /// <summary>
+        /// call the underlying delegate.
+        /// </summary>
+        /// <param name="aParams">input parameters</param>
+        /// <returns></returns>
         //--------------------------------------------------------------
         public TReturnType Function<TReturnType>(params object[] aParams)
         {

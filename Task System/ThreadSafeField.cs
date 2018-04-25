@@ -26,6 +26,10 @@ namespace XenoEngine.TaskSystem
         }
         #endregion
         //--------------------------------------------------------------
+        /// <summary>
+        /// start write lock
+        /// </summary>
+        /// <returns></returns>
         //--------------------------------------------------------------
         public T StartLock()
         {
@@ -33,12 +37,20 @@ namespace XenoEngine.TaskSystem
             return m_value;
         }
         //--------------------------------------------------------------
+        /// <summary>
+        /// exit write lock
+        /// </summary>
         //--------------------------------------------------------------
         public void EndLock()
         {
             Monitor.Exit(m_lockObject);
         }
         //--------------------------------------------------------------
+        /// <summary>
+        /// start write lock override
+        /// </summary>
+        /// <param name="lockObject">object to use to lock on</param>
+        /// <returns></returns>
         //--------------------------------------------------------------
         public T StartLock(object lockObject)
         {
@@ -46,6 +58,11 @@ namespace XenoEngine.TaskSystem
             return m_value;
         }
         //--------------------------------------------------------------
+        /// <summary>
+        /// exit write lock override
+        /// </summary>
+        /// <param name="lockObject">object to use to lock on</param>
+        /// <returns></returns>
         //--------------------------------------------------------------
         public void EndLock(object lockObject)
         {
@@ -56,6 +73,9 @@ namespace XenoEngine.TaskSystem
         public T Value { get { lock (m_lockObject) { return m_value; } } set { lock (m_lockObject) { m_value = value; } } }
     }
 
+    /// <summary>
+    /// non- generic versioin of ThreadSafeField
+    /// </summary>
     public class ThreadSafeField
     {
         dynamic m_value;
