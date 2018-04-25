@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework;
 using XenoEngine.Utilities;
 
 namespace XenoEngine.Systems.MenuSystem
@@ -38,7 +37,6 @@ namespace XenoEngine.Systems.MenuSystem
         {
             var entry = new PlaceHolder();
             entry.DockableObject = dockingObject;
-            
 
             if (m_pages[m_nCurrentPage].IsFull)
             {
@@ -53,14 +51,6 @@ namespace XenoEngine.Systems.MenuSystem
                 m_DockedItems[m_nCurrentIndex++] = entry;
                 var lastItem = m_DockedItems[m_nLastAddedIndex];
             }
-
-
-
-            
-            
-//             dockingObject.Position = new Vector2(
-//                 lastItem.DockableObject.Position.X, 
-//                 lastItem.DockableObject.Position.Y + lastItem.DockableObject.Height + ITEM_OFFSET);
 
             m_nLastAddedIndex = m_nCurrentIndex - 1;
         }
