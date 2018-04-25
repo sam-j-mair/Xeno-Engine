@@ -8,10 +8,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace XenoEngine.Systems
 {
-
+    
     
     /// <summary>
-    /// This is a game component that implements IUpdateable.
+    /// This is a test for building actionmaps from an external XML file.
     /// </summary>
     public class ActionMapBuilder
     {

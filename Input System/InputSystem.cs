@@ -16,7 +16,11 @@ namespace XenoEngine.Systems
         Keyboard,
         GamePad
     }
-    
+    //----------------------------------------------------------------------------
+    /// <summary>
+    /// class the stores, controls and updates input listeners.
+    /// </summary>
+    //----------------------------------------------------------------------------
     [Serializable]
     public class Input
     {
@@ -25,6 +29,12 @@ namespace XenoEngine.Systems
         private Dictionary<ControllerType, Type> m_dynamicStore; 
         
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// create a controller with a particlar listener.
+        /// </summary>
+        /// <typeparam name="InputListnerType">generic contraint meaning base class has to be an input listener.</typeparam>
+        /// <param name="nControllerIndex">the index the controller will be stored at.</param>
+        /// <param name="actionMap">the action map bindings for the controller.</param>
         //----------------------------------------------------------------------------
         public void CreateController<InputListnerType>(int nControllerIndex, ActionMap actionMap) where InputListnerType : InputListner, new()
         {
@@ -34,6 +44,12 @@ namespace XenoEngine.Systems
             m_inputListners.Add(new ControllerMap(inputController, nControllerIndex));
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// allows to register a new action map for an existing controller.
+        /// </summary>
+        /// <param name="nPlayerIndex">in the index of the controller</param>
+        /// <param name="map">the new map.</param>
+        /// <returns>return the old action map if there is one.</returns>
         //----------------------------------------------------------------------------
         public ActionMap RegisterActionMap(int nPlayerIndex, ActionMap map)
         {

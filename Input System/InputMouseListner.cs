@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace XenoEngine.Systems
 {
+    /// <summary>
+    /// Mouse observer class.
+    /// </summary>
     [Serializable]
     public class MouseObserver
     {
@@ -43,7 +46,11 @@ namespace XenoEngine.Systems
         public int MouseY { get; internal set; }
         public Vector2 Position { get { return new Vector2(MouseX, MouseY); } }
     }
-
+    //----------------------------------------------------------------------------
+    /// <summary>
+    /// Mouse button enumeration.
+    /// </summary>
+    //----------------------------------------------------------------------------
     public enum MouseButton
     {
         LeftButton,
@@ -52,15 +59,19 @@ namespace XenoEngine.Systems
         XButton1,
         XButton2
     }
-
-
+    //----------------------------------------------------------------------------
     //this remaps ButtonState to a new enum
+    //----------------------------------------------------------------------------
     public enum MouseButtonStates
     {
         Pressed = ButtonState.Pressed,
         Released = ButtonState.Released
     }
-
+    //----------------------------------------------------------------------------
+    /// <summary>
+    /// Mouse Input listener class.
+    /// </summary>
+    //----------------------------------------------------------------------------
     public class InputMouseListner : InputListner
     {
         public delegate void UpdateMouse(int nMouseX, int nMouseY);
@@ -73,7 +84,12 @@ namespace XenoEngine.Systems
             Type = ControllerType.Mouse;
             base.Initialise();
         }
-
+        //----------------------------------------------------------------------------
+        /// <summary>
+        /// factory method for creating a mouse observer for this listener.
+        /// </summary>
+        /// <returns> mouse observer</returns>
+        //----------------------------------------------------------------------------
         public MouseObserver CreateMouseObserver()
         {
             MouseState mouseState = Mouse.GetState();
@@ -85,7 +101,12 @@ namespace XenoEngine.Systems
 
             return mouseObserver;
         }
-
+        //----------------------------------------------------------------------------
+        /// <summary>
+        /// update the mouse input listener.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        //----------------------------------------------------------------------------
         public override void Update(GameTime gameTime)
         {
             MouseState mouseState = Mouse.GetState();
