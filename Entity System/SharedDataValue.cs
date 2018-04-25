@@ -7,6 +7,9 @@ using XenoEngine.GeneralSystems;
 
 namespace XenoEngine.EntitySystem
 {
+    /// <summary>
+    /// SharedDataValue is used for flushing data automaticly across the network
+    /// </summary>
     [Serializable]
     public class SharedDataValue
     {
@@ -15,12 +18,19 @@ namespace XenoEngine.EntitySystem
         bool m_bUpdated;
 
         //-------------------------------------------------------------------------------
+        /// <summary>
+        /// C/TOR
+        /// </summary>
+        /// <param name="entity">the entity that owns this data.</param>
         //-------------------------------------------------------------------------------
         public SharedDataValue(Entity entity)
         {
             OwnEntity = entity;
         }
         //-------------------------------------------------------------------------------
+        /// <summary>
+        /// gets and set the value of the data. It checks that the entity is authoritative before we set the data...and we also flag that the value has been updated.
+        /// </summary>
         //-------------------------------------------------------------------------------
         public dynamic Value
         {
@@ -40,6 +50,9 @@ namespace XenoEngine.EntitySystem
             }
         }
         //-------------------------------------------------------------------------------
+        /// <summary>
+        /// check if the value has been updated.
+        /// </summary>
         //-------------------------------------------------------------------------------
         public bool Updated
         {
@@ -55,6 +68,9 @@ namespace XenoEngine.EntitySystem
         public bool IsNetworked { get; set; }
     }
     //-------------------------------------------------------------------------------
+    /// <summary>
+    /// store the name of data and the data its self.
+    /// </summary>
     //-------------------------------------------------------------------------------
     public struct DataDefinition
     {
@@ -68,11 +84,20 @@ namespace XenoEngine.EntitySystem
         }
     }
     //-------------------------------------------------------------------------------
+    /// <summary>
+    /// specilized data packets for shared data, this is in order to make sending the shared data more efficent.
+    /// </summary>
     //-------------------------------------------------------------------------------
     public struct DataPacket
     {
         Dictionary<string, dynamic> m_dataObjects;
 
+        //-------------------------------------------------------------------------------
+        /// <summary>
+        /// C/TOR
+        /// </summary>
+        /// <param name="aData">the data to packeted up.</param>
+        //-------------------------------------------------------------------------------
         public DataPacket(params DataDefinition[] aData)
         {
             m_dataObjects = new Dictionary<string, object>();
@@ -83,6 +108,11 @@ namespace XenoEngine.EntitySystem
             }
         }
         //-------------------------------------------------------------------------------
+        /// <summary>
+        /// add more data after creation.
+        /// </summary>
+        /// <param name="szName">name of data.</param>
+        /// <param name="data">the data.</param>
         //-------------------------------------------------------------------------------
         public void AddData(string szName, object data)
         {
@@ -91,6 +121,11 @@ namespace XenoEngine.EntitySystem
             m_dataObjects.Add(szName, data);
         }
         //-------------------------------------------------------------------------------
+        /// <summary>
+        /// gets the data of a particular name.
+        /// </summary>
+        /// <param name="szName">name of data to be retreived.</param>
+        /// <returns></returns>
         //-------------------------------------------------------------------------------
         public object GetData(string szName)
         {
@@ -102,6 +137,9 @@ namespace XenoEngine.EntitySystem
             return value;
         }
         //-------------------------------------------------------------------------------
+        /// <summary>
+        /// only initialized the data array if needed.
+        /// </summary>
         //-------------------------------------------------------------------------------
         private void LazyInit()
         {
