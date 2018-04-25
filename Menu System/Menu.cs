@@ -28,31 +28,25 @@ namespace XenoEngine.Systems.MenuSystem
         }
     }
     //----------------------------------------------------------------------------
+    /// <summary>
+    /// Container for guiobjects, base class for all menus .
+    /// </summary>
     //----------------------------------------------------------------------------
     abstract class Menu : SerializableComponent, IGameComponent, IUpdateable, IDisposable
     {
-        #region EVENTS
-        public event Action Idle;
-        public event Action Activating;
-        public event Action Active;
-        public event Action Deactivating;
-        #endregion
-
         #region PRIVATE
-        private TreeNode<Menu> m_node;
-        private StateMachine<Menu> m_stateMachine;
-        private Dictionary<String, State<Menu>> m_states;
-        private Dictionary<String, Button> m_buttonDictionary;
-        protected MouseObserver m_mouseObserver;
-        private bool m_bIsActive;
-        private int m_nUpdateOrder;
-        private bool m_bEnabled;
+        private TreeNode<Menu>                      m_node;
+        private StateMachine<Menu>                  m_stateMachine;
+        private Dictionary<String, State<Menu>>     m_states;
+        private Dictionary<String, Button>          m_buttonDictionary;
+        protected MouseObserver                     m_mouseObserver;
+        private bool                                m_bIsActive, m_bEnabled;
+        private int                                 m_nUpdateOrder;
         #endregion
 
-        #region PUBLIC
-        public event EventHandler<EventArgs> EnabledChanged;
-        public event EventHandler<EventArgs> UpdateOrderChanged;
-        public event EventHandler<EventArgs> Disposed;
+        #region PUBLIC EVENTS
+        public event Action                         Idle, Activating, Active, Deactivating;
+        public event EventHandler<EventArgs>        EnabledChanged, UpdateOrderChanged, Disposed;
         #endregion
 
         public Menu()
