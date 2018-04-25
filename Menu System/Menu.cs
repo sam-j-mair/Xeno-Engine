@@ -78,6 +78,11 @@ namespace XenoEngine.Systems.MenuSystem
         //----------------------------------------------------------------------------
         public virtual void Initialize() { }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// Add button to this menu.
+        /// </summary>
+        /// <param name="szName">name given to the button.</param>
+        /// <param name="button">the in question.</param>
         //----------------------------------------------------------------------------
         protected void AddButton(string szName, Button button)
         {
@@ -86,12 +91,21 @@ namespace XenoEngine.Systems.MenuSystem
             m_buttonDictionary.Add(szName, button);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// get the button by name.
+        /// </summary>
+        /// <param name="szName">the name of the button.</param>
+        /// <returns></returns>
         //----------------------------------------------------------------------------
         protected Button RetrieveButton(string szName)
         {
             return m_buttonDictionary[szName];
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// add a Menu as a child of this Menu.
+        /// </summary>
+        /// <param name="childMenu">The Menu to add as a child.</param>
         //----------------------------------------------------------------------------
         protected void AddChildMenu(Menu childMenu)
         {
@@ -99,18 +113,29 @@ namespace XenoEngine.Systems.MenuSystem
             m_node.AddChild(childMenu.m_node);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// remove child menu.
+        /// </summary>
+        /// <param name="childMenu"></param>
         //----------------------------------------------------------------------------
         protected void RemoveChildMenu(Menu childMenu)
         {
             m_node.RemoveChild(childMenu.m_node);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// get parent of this menu.
+        /// </summary>
+        /// <returns></returns>
         //----------------------------------------------------------------------------
         protected Menu GetParent()
         {
             return m_node.Parent.UserData;
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// 'switch' on this menu.
+        /// </summary>
         //----------------------------------------------------------------------------
         public void Activate()
         {
@@ -118,6 +143,9 @@ namespace XenoEngine.Systems.MenuSystem
             m_stateMachine.ChangeState(m_states["Activating"]);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// 'switch' off this menu.
+        /// </summary>
         //----------------------------------------------------------------------------
         public void Deactivate()
         {
@@ -125,6 +153,10 @@ namespace XenoEngine.Systems.MenuSystem
             m_stateMachine.ChangeState(m_states["Deactivating"]);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// Copy the buttons in this menu into an array and pass out ref
+        /// </summary>
+        /// <param name="aButtons"></param>
         //----------------------------------------------------------------------------
         public void ButtonsToArray(out Button[] aButtons)
         {
@@ -132,12 +164,20 @@ namespace XenoEngine.Systems.MenuSystem
             m_buttonDictionary.Values.CopyTo(aButtons, 0);
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// Explicit Override for interface.
+        /// </summary>
+        /// <param name="gameTime"></param>
         //----------------------------------------------------------------------------
         void IUpdateable.Update(GameTime gameTime)
         {
             Update(new DeltaTime(gameTime.TotalGameTime, gameTime.ElapsedGameTime));
         }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// update this menu.
+        /// </summary>
+        /// <param name="deltaTime"></param>
         //----------------------------------------------------------------------------
         public virtual void Update(DeltaTime deltaTime)
         {
@@ -219,6 +259,10 @@ namespace XenoEngine.Systems.MenuSystem
         //NOTE: These may not be needed.
         //STATES
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// This are the different state of each menu...controlling the flow
+        /// of the menu system. This will mainly be used for animation purposes.
+        /// </summary>
         //----------------------------------------------------------------------------
         class StateIdle : State<Menu>
         {

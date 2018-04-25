@@ -13,18 +13,20 @@ namespace XenoEngine.Systems.MenuSystem
 {
     public class TextBox : GUIObject
     {
-        private Sprite m_backGround;
-        private Sprite m_cursor;
-        private TextSprite m_textSprite;
-        private bool m_bAcceptingText;
-        private TimeSpan m_InputDelayTimer;
-        private TimeSpan m_accumulator;
-        private StringBuilder m_szBuilder;
+        private const int       CHAR_SPACE = 12;
+        private const int       MAX_CHAR = 20;
 
-        private const int CHAR_SPACE = 12;
-        private const int MAX_CHAR = 20;
+        private Sprite          m_backGroun,
+                                m_cursor;
 
-        public Action<string> TextEntered;
+        private TextSprite      m_textSprite;
+        private bool            m_bAcceptingText;
+        private TimeSpan        m_InputDelayTimer, 
+                                m_accumulator;
+
+        private StringBuilder   m_szBuilder;
+
+        public Action<string>   TextEntered;
 
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
