@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
 using XenoEngine.Systems;
 using System.Linq;
 using System.Collections;
@@ -10,6 +9,9 @@ using System.Collections.Generic;
 
 namespace XenoEngine.Systems
 {
+    /// <summary>
+    /// the base class for all input listners.
+    /// </summary>
     [Serializable]
     public class InputListner
     {
@@ -26,6 +28,10 @@ namespace XenoEngine.Systems
         //----------------------------------------------------------------------------
         public virtual void Update(GameTime gameTime) { }
         //----------------------------------------------------------------------------
+        /// <summary>
+        /// base functionality for firing an event.
+        /// </summary>
+        /// <param name="szEventName">the name of the event to be fired.</param>
         //----------------------------------------------------------------------------
         protected void FireEvent(String szEventName)
         {

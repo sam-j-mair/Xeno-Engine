@@ -1,6 +1,4 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using XenoEngine.Systems;
 using System.Collections;
 
@@ -15,6 +13,9 @@ namespace XenoEngine.Systems
         static string[] saEventBuffer = new string[m_knBufferSize];
 
         //-----------------------------------------------------------------------------------
+        /// <summary>
+        /// Initlize listener. This needs to be called before anything else can be done.
+        /// </summary>
         //-----------------------------------------------------------------------------------
         public override void Initialise()
         {
@@ -22,6 +23,11 @@ namespace XenoEngine.Systems
             m_oldKeyboardState = Keyboard.GetState((PlayerIndex)ActionMap.PlayerIndex);
         }
         //-----------------------------------------------------------------------------------
+        /// <summary>
+        /// get the input buffer for the keyboard.
+        /// </summary>
+        /// <param name="eControllerIndex">the controller index used for the keyboard.</param>
+        /// <returns></returns>
         //-----------------------------------------------------------------------------------
         public Keys[] GetRawInputBuffer(PlayerIndex eControllerIndex)
         {
@@ -30,6 +36,10 @@ namespace XenoEngine.Systems
             return state.GetPressedKeys();
         }
         //-----------------------------------------------------------------------------------
+        /// <summary>
+        /// update the keyboard listner and store events for processing in the next frame.
+        /// </summary>
+        /// <param name="gameTime"></param>
         //-----------------------------------------------------------------------------------
         public override void Update(GameTime gameTime)
         {
