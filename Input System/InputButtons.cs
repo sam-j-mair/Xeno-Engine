@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-using Microsoft.Xna.Framework.Input;
 using XenoEngine.Systems;
 
+/// <summary>
+/// button mapping for keyboard. Temporary
+/// </summary>
 namespace XenoEngine.InputSystem
 {
 //     public static class InputUtilites

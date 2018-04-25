@@ -3,6 +3,9 @@
 namespace XenoEngine.Systems
 {
     //-------------------------------------------------------------------------------
+    /// <summary>
+    /// A controller Enum for defining input type.
+    /// </summary>
     //-------------------------------------------------------------------------------
     public enum Controller
     {
@@ -15,6 +18,9 @@ namespace XenoEngine.Systems
         Controller_Count = 5
     }
     //-------------------------------------------------------------------------------
+    /// <summary>
+    /// A mapping class that maps an input listener with a Controller index.
+    /// </summary>
     //-------------------------------------------------------------------------------
     [Serializable]
     class ControllerMap
